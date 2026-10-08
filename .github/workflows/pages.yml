@@ -25,7 +25,7 @@ jobs:
           python-version: '3.12'
       - name: Test text handoff and automatic discovery
         run: |
-          node --test tests/core.test.js
+          node --test tests/*.test.js
           python3 -m unittest discover -s tests -p 'test_*.py'
       - name: Build from every prompt text file
         env:

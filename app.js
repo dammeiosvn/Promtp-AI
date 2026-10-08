@@ -1,4 +1,5 @@
-import { shortcutURL, normalize, validateCatalog, matches } from './core.js';
+import { shortcutURL, normalize, matches } from './core.js';
+import { readCatalog } from './catalog.js';
 
 const $ = id => document.getElementById(id);
 const list = $('list'), q = $('q');
@@ -129,21 +130,20 @@ async function loadCatalog(manual = false) {
   refreshTask = (async () => {
     $('refreshBtn').disabled = true;
     try {
-      const response = await fetch('./prompts.json', { cache: 'no-store', signal: AbortSignal.timeout(12000) });
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      const next = validateCatalog(await response.json());
+      const result = await readCatalog(catalog);
+      const next = result.catalog;
       const changed = catalog && catalog.version !== next.version;
       catalog = next;
       items = next.prompts.map(item => ({ ...item, search: normalize(item.title + ' ' + item.category + ' ' + item.text) }));
       if (category && !items.some(item => item.category === category)) category = '';
       syncFilters(); paint(); lastChecked = Date.now();
-      if (manual) toast(navigator.onLine ? changed ? 'Đã nhận prompt mới' : 'Kho prompt đã cập nhật' : 'Đang dùng bản đã lưu ngoại tuyến');
-    } catch {
+      if (manual) toast(result.cached || !navigator.onLine ? 'Đang dùng kho prompt đã lưu' : changed ? 'Đã nhận prompt mới' : 'Kho prompt đã cập nhật');
+    } catch (failure) {
       if (catalog) { if (manual) toast('Chưa tải được bản mới. Vẫn dùng kho đã mở.'); }
       else {
         list.replaceChildren();
         const error = document.createElement('p'); error.className = 'err';
-        error.textContent = 'Chưa tải được kho prompt. Kiểm tra kết nối hoặc bản triển khai GitHub Pages rồi thử lại.';
+        error.textContent = failure.code === 'GITHUB_LIMIT' ? 'GitHub đang giới hạn lượt đọc. Chờ một lúc rồi nhấn làm mới, hoặc dùng workflow build của repo.' : 'Chưa tải được kho prompt. Kiểm tra kết nối hoặc bản triển khai GitHub Pages rồi thử lại.';
         list.append(error); list.setAttribute('aria-busy', 'false'); $('summary').textContent = 'Kho prompt chưa sẵn sàng';
       }
     } finally { $('refreshBtn').disabled = false; refreshTask = null; connection(); }

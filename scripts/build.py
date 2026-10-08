@@ -11,7 +11,7 @@ from urllib.parse import quote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED = {'_site', 'node_modules', 'scripts', 'tests', 'icons', 'assets', '__pycache__'}
-STATIC = ('index.html', 'style.css', 'app.js', 'core.js', 'sw.js', 'manifest.webmanifest')
+STATIC = ('index.html', 'style.css', 'app.js', 'core.js', 'catalog.js', 'sw.js', 'manifest.webmanifest')
 
 
 def discover(root):

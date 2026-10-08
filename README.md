@@ -20,7 +20,9 @@ Dịch văn bản.txt
 - **Nội dung tệp** → văn bản đầu vào của phím tắt, giữ nguyên xuống dòng, Unicode, emoji và ký tự đặc biệt.
 - Quét thư mục con tự động, nhận cả `.TXT`. Tệp rỗng và thư mục hạ tầng (`scripts`, `tests`, `icons`, `assets`, `_site`, `node_modules`, thư mục bắt đầu bằng dấu chấm) được bỏ qua.
 
-Mỗi lần push vào `main`, GitHub Actions tự tạo danh mục `prompts.json` và triển khai trang. **Không phải sửa HTML, JSON hay khai báo tên thư mục.** Prompt mới xuất hiện sau khi workflow triển khai thành công; nhấn nút làm mới trong webclip nếu cần.
+Mỗi lần push vào `main`, GitHub Actions tự tạo danh mục `prompts.json` và triển khai trang. **Không phải sửa HTML, JSON hay khai báo tên thư mục.** Nếu Pages xuất bản trực tiếp nhánh `main`, webclip tự quét repo public qua GitHub API và đọc các tệp `.txt`; không cần danh mục build. Nhấn nút làm mới trong webclip sau khi thêm prompt nếu cần.
+
+Bộ quét chỉ tải lại nội dung các tệp đã đổi và lưu kho prompt trên thiết bị. Cách đọc trực tiếp repo public chịu giới hạn API của GitHub; dùng workflow build bên dưới để tránh phụ thuộc API. Nếu API tạm lỗi, kho đã lưu vẫn mở được.
 
 ## Kết nối Shortcuts
 
@@ -60,13 +62,13 @@ Nếu dùng tên miền riêng, đặt Repository variable **`PAGES_BASE_URL`** 
 Không có phụ thuộc npm hay Python bên ngoài. Cần Node.js 22+ và Python 3.10+:
 
 ```bash
-node --test tests/core.test.js
+node --test tests/*.test.js
 python3 -m unittest discover -s tests -p 'test_*.py'
 python3 scripts/build.py
 python3 -m http.server 8080 --directory _site
 ```
 
-Mở `http://localhost:8080`. Khi triển khai, **dùng workflow GitHub Actions**, không chọn xuất bản trực tiếp nhánh `main`: Pages cần bước build để nhận thư mục mới.
+Mở `http://localhost:8080`. Khuyến nghị dùng workflow GitHub Actions: danh mục được tạo sẵn, tải nhanh và không phụ thuộc GitHub API. Xuất trực tiếp nhánh `main` cũng hỗ trợ tự nhận prompt khi repo public.
 
 `index.html`, `style.css`, `app.js`, `core.js`, `sw.js` là mã giao diện; `scripts/build.py` quét prompt và tạo `_site/`. Thư mục `_site/` là bản build, không commit. Nội dung prompt chỉ được chèn vào giao diện bằng `textContent`, không thực thi HTML/script bên trong tệp.
 

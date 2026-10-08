@@ -2,5 +2,5 @@
   "name": "prompt-ai-webclip",
   "private": true,
   "type": "module",
-  "scripts": { "test": "node --test tests/core.test.js", "build": "python3 scripts/build.py" }
+  "scripts": { "test": "node --test tests/*.test.js", "build": "python3 scripts/build.py" }
 }
