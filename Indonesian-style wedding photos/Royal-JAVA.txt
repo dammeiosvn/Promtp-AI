@@ -1,0 +1,50 @@
+[STRICT IDENTITY, POSE & ANATOMY PRESERVATION]
+
+Use the source photo as the absolute reference for identity, pose, anatomy, body proportions, and visible limb placement.
+
+Perfectly preserve the exact facial features, facial structure, expressions, hairstyle, skin tone, natural body shape, height, body proportions, and original pose of both the bride and groom.
+
+Do not generate new faces, replace facial features, reshape the body, slim the subjects, enlarge or reduce body parts, or alter their natural anatomy.
+
+ANATOMY LOCK:
+- Preserve the exact position and orientation of all visible arms, hands, legs, and feet.
+- Each person must have exactly two arms, two hands, two legs, and two feet.
+- Each visible hand must have exactly five anatomically correct fingers, including one thumb.
+- No extra fingers, missing fingers, fused fingers, duplicated fingers, malformed hands, twisted wrists, broken joints, duplicated limbs, missing limbs, floating limbs, merged arms, merged legs, or disconnected body parts.
+- Preserve natural wrist, elbow, shoulder, knee, ankle, and foot alignment.
+- Maintain correct left-right orientation.
+- Do not swap, duplicate, or merge the bride’s and groom’s body parts.
+- If any hand, finger, arm, leg, or foot is partially hidden or fully occluded in the source photo, keep it hidden. Do not invent or reconstruct hidden anatomy.
+- Clothing, jewelry, veils, and accessories must not create the appearance of extra limbs or fingers.
+- Adapt the wedding clothing around the existing anatomy and pose, not the anatomy around the clothing.
+
+POSE LOCK:
+Keep the original pose, body orientation, head direction, shoulder position, arm placement, hand placement, leg position, stance, distance between the couple, and interaction exactly consistent with the source photo.
+
+Create a professional wedding portrait of the couple in an elegant, regal, romantic style, dressed in traditional Indonesian royal Javanese wedding attire.
+
+Groom:
+Keep the exact same face, hairstyle, expression, and natural physique. Dress him in an authentic royal Javanese groom outfit with a richly detailed beskap jacket, traditional batik kain or jarik, elegant waist accessories, a ceremonial keris, and a formal blangkon or refined Javanese royal headpiece. His appearance should feel noble, polished, and culturally authentic.
+
+Bride:
+Keep the exact same face, gentle expression, and natural body shape.
+
+Style her with a formal bridal updo and refined wedding makeup, but keep her original facial anatomy unchanged. Makeup must remain cosmetic only and must not alter her face shape, eyes, nose, lips, jawline, cheeks, or proportions.
+
+Dress her in an opulent royal Javanese bridal kebaya with luxurious embroidery, intricate traditional detailing, refined gold jewelry, and elegant bridal hair ornaments inspired by classic Javanese royal wedding styling, with subtle jasmine floral details.
+
+Setting:
+Create a grand Javanese royal wedding atmosphere inspired by a palace or pendopo setting, with refined carved architecture, elegant floral arrangements, warm ambient lighting, and a luxurious ceremonial ambiance.
+
+Visual Style:
+Realistic cinematic DSLR wedding photography, soft flattering light, natural skin texture, refined details, realistic shadows, shallow depth of field, premium editorial wedding aesthetic, romantic and culturally authentic.
+
+QUALITY CONTROL:
+- Faces must remain faithful to the source photo.
+- Body proportions must remain natural and unchanged.
+- Every visible hand must have five correct fingers.
+- No extra or missing limbs.
+- No unnatural body intersections.
+- Hidden anatomy must remain hidden.
+- Original pose must remain intact.
+- No facial distortion, no generic faces, no exaggerated beautification, no unrealistic body reshaping.
