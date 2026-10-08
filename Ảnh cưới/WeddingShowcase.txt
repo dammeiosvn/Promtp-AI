@@ -1,0 +1,946 @@
+# PROJECT: WEDDING SHOWCASE
+# Apple-Inspired Wedding Photography Webclip
+# Platform: iOS PWA / GitHub Pages
+# Architecture: Static Website + Automated Image Pipeline
+
+==================================================
+1. VAI TRÒ VÀ NHIỆM VỤ
+==================================================
+
+Bạn là Senior Frontend Engineer, UI/UX Designer và chuyên gia tối ưu Progressive Web App (PWA) trên iOS Safari.
+
+Nhiệm vụ của bạn là thiết kế và xây dựng một website trưng bày ảnh cưới cao cấp mang tên:
+
+WEDDING SHOWCASE
+
+Website được triển khai trên GitHub Pages và có thể thêm vào màn hình chính iPhone dưới dạng Webclip/PWA.
+
+Phong cách thiết kế lấy cảm hứng từ triết lý trình bày sản phẩm của Apple: tối giản, sang trọng, nhiều khoảng trắng, typography tinh tế, hình ảnh lớn, chuyển động mượt mà và trải nghiệm cuộn trang có tính kể chuyện.
+
+Không sao chép thương hiệu, logo, hình ảnh, bố cục độc quyền hoặc mã nguồn của Apple.
+
+Thay vì giới thiệu sản phẩm công nghệ, website sẽ giới thiệu bộ ảnh cưới thông qua một trải nghiệm kể chuyện bằng hình ảnh.
+
+YÊU CẦU CỐT LÕI:
+
+- Giao diện cao cấp, đẹp và tinh tế.
+- Trải nghiệm mượt trên iPhone.
+- Hoạt động tốt dưới dạng Webclip/PWA.
+- Tương thích với GitHub Pages.
+- Không cần backend hoặc cơ sở dữ liệu.
+- Tự động phát hiện ảnh mới từ repository.
+- Dễ mở rộng và bảo trì.
+- Không phải chỉnh sửa HTML/JavaScript mỗi khi thêm ảnh.
+- Ưu tiên chất lượng thiết kế và hiệu năng thực tế hơn số lượng hiệu ứng.
+
+Không chỉ đưa ra ý tưởng hoặc bản demo giao diện.
+
+Hãy xây dựng một dự án hoàn chỉnh, có mã nguồn thực thi được và sẵn sàng triển khai.
+
+==================================================
+2. CONCEPT THIẾT KẾ
+==================================================
+
+DESIGN CONCEPT:
+Love Story Keynote + Wedding Gallery.
+
+COLOR PALETTE:
+Ivory White + Cinematic Black.
+
+Phong cách tổng thể:
+
+- Modern Luxury.
+- Minimalist Editorial.
+- Cinematic Romance.
+- Premium Photography Showcase.
+- Apple-inspired visual storytelling.
+
+Sử dụng hai tông màu chủ đạo:
+
+Ivory White: #F8F7F4
+Cinematic Black: #101012
+
+Các màu phụ nên là xám trung tính và những sắc độ phù hợp với ảnh cưới.
+
+Tránh:
+- Gradient sặc sỡ.
+- Nút bấm quá lớn.
+- Giao diện nhiều khung viền.
+- Màu sắc thiếu đồng nhất.
+- Animation phô trương.
+- Phong cách dashboard hoặc trang thương mại điện tử.
+
+TYPOGRAPHY:
+
+Sử dụng hệ thống font native phù hợp iOS hoặc font web được tối ưu hiệu năng và quyền sử dụng.
+
+Ưu tiên typography tương tự triết lý Apple:
+- Tiêu đề lớn, rõ ràng.
+- Chữ có khoảng cách hợp lý.
+- Phân cấp nội dung rõ.
+- Văn bản ngắn, có cảm xúc.
+- Khoảng trắng rộng nhưng không lãng phí không gian trên iPhone.
+
+Thiết kế Mobile-first.
+
+Mọi thành phần phải thích ứng với màn hình nhỏ và các thiết bị desktop.
+
+==================================================
+3. KIẾN TRÚC GIAO DIỆN
+==================================================
+
+Website gồm các khu vực:
+
+A. HERO SECTION
+
+Màn hình giới thiệu đầu tiên.
+
+- Ảnh cưới chất lượng cao chiếm phần lớn màn hình.
+- Tiêu đề lớn, tối giản.
+- Lời dẫn ngắn về tình yêu.
+- Chuyển động xuất hiện tinh tế.
+- Có thể sử dụng ảnh tràn màn hình.
+- Bố cục căn chỉnh theo safe area của iPhone.
+- Có chỉ dẫn cuộn trang nhỏ, thanh lịch.
+
+Ví dụ nội dung:
+
+OUR LOVE STORY
+
+"Một đời. Một người."
+
+"Và một tình yêu không có ngày kết thúc."
+
+Nội dung phải có thể thay đổi qua dữ liệu cấu hình.
+
+Không hardcode tên nhân vật hoặc nội dung cá nhân vào nhiều thành phần HTML.
+
+B. LOVE STORY SECTIONS
+
+Các chương kể chuyện tình yêu.
+
+Mỗi chương có thể gồm:
+- Tiêu đề.
+- Dòng mô tả ngắn.
+- Một hoặc nhiều ảnh nổi bật.
+- Bố cục thay đổi linh hoạt.
+- Hiệu ứng xuất hiện khi cuộn.
+
+Các chương được tạo động từ dữ liệu album.
+
+Không yêu cầu người dùng phải chỉnh sửa HTML khi xuất hiện chương mới.
+
+Tùy bố cục:
+- Một ảnh toàn chiều rộng.
+- Hai ảnh song song.
+- Ảnh dọc xen kẽ ảnh ngang.
+- Ảnh lớn kết hợp chữ.
+- Bố cục editorial bất đối xứng.
+
+Bảo đảm tính thẩm mỹ nhưng không làm vỡ tỷ lệ ảnh.
+
+C. WEDDING GALLERY
+
+Bộ sưu tập ảnh cưới.
+
+- Tự động tạo từ album.json.
+- Phân nhóm ảnh theo thư mục/chương.
+- Bố cục ảnh đẹp trên mobile.
+- Hỗ trợ ảnh ngang và dọc.
+- Giữ đúng tỷ lệ ảnh tự nhiên khi cần.
+- Có thể sử dụng bố cục editorial hoặc grid được tính toán hợp lý.
+- Không sử dụng layout nhảy liên tục khi ảnh tải.
+- Hạn chế khoảng trống bất thường.
+- Không cắt mất khuôn mặt nhân vật do object-fit.
+
+Cho phép khai báo focal point/object-position riêng cho ảnh quan trọng.
+
+D. FOOTER
+
+Thiết kế tối giản, có tính cảm xúc.
+
+Có thể hiển thị:
+- Tên bộ ảnh.
+- Một lời nhắn tình yêu.
+- Dòng kết thúc câu chuyện.
+
+Không thêm quá nhiều nút hoặc liên kết không cần thiết.
+
+==================================================
+4. LIGHTBOX — TRÌNH XEM ẢNH
+==================================================
+
+Xây dựng trình xem ảnh toàn màn hình tối ưu cho iPhone.
+
+Khi chạm vào một ảnh:
+
+- Mở ảnh với transition mềm mại.
+- Nền tối kiểu Cinematic Black.
+- Ảnh được hiển thị đúng tỷ lệ.
+- Có nút đóng dễ thao tác.
+- Có bộ đếm ảnh hiện tại/tổng ảnh.
+- Vuốt ngang để chuyển ảnh.
+- Hỗ trợ pinch-to-zoom bằng hai ngón tay.
+- Hỗ trợ double-tap để phóng to nếu triển khai ổn định.
+- Khi đang zoom, kéo ảnh để xem chi tiết.
+- Khi đang zoom, không vô tình kích hoạt chuyển ảnh.
+- Không phóng to vượt mức bất hợp lý.
+- Không làm mất vị trí cuộn trang khi đóng lightbox.
+
+Khi đóng lightbox:
+
+- Trả về đúng vị trí trước đó.
+- Khôi phục trạng thái cuộn trang.
+- Không reload website.
+- Không gây giật giao diện.
+
+Trên desktop:
+- Hỗ trợ Escape để đóng.
+- Hỗ trợ phím mũi tên chuyển ảnh.
+- Quản lý keyboard focus hợp lý.
+
+Ảnh trong lightbox phải sử dụng phiên bản chất lượng cao hơn thumbnail.
+
+Không tải trước toàn bộ ảnh độ phân giải lớn khi người dùng chưa cần.
+
+==================================================
+5. NHẠC NỀN
+==================================================
+
+Thêm hệ thống nhạc nền cho Wedding Showcase.
+
+File nhạc được lưu trực tiếp trong repository.
+
+Ví dụ:
+
+public/audio/wedding.mp3
+
+YÊU CẦU:
+
+- Có nút bật/tắt nhạc nhỏ, thanh lịch.
+- Thiết kế icon phù hợp phong cách website.
+- Không hiển thị audio player mặc định.
+- Không tự phát nhạc khi mới mở website.
+- Chỉ phát sau thao tác chủ động của người dùng.
+- Tương thích chính sách autoplay của iOS Safari.
+- Hỗ trợ phát lặp nếu được cấu hình.
+- Không khởi tạo nhiều audio instance.
+- Không tự động phát lại ngoài ý muốn khi quay lại ứng dụng.
+- Xử lý Promise rejection khi audio.play() thất bại.
+- Xử lý sự kiện chuyển ứng dụng sang nền một cách hợp lý.
+
+Có thể ghi nhớ tùy chọn âm nhạc, nhưng không được dùng tùy chọn đó để vượt qua chính sách autoplay.
+
+Nhạc là tính năng phụ, không được ảnh hưởng tới tốc độ tải ảnh hoặc thao tác cuộn trang.
+
+Nếu không có file nhạc:
+- Ẩn điều khiển nhạc.
+- Không báo lỗi JavaScript.
+- Website hoạt động bình thường.
+
+==================================================
+6. KIẾN TRÚC DỮ LIỆU ẢNH
+==================================================
+
+Đây là yêu cầu kỹ thuật bắt buộc.
+
+Nguồn ảnh chính là các thư mục trong GitHub repository.
+
+Ví dụ:
+
+photos/
+    vietnam/
+    khmer/
+    indonesia/
+    dalat/
+
+Người dùng chỉ cần tải ảnh mới vào các thư mục tương ứng.
+
+Hệ thống phải tự động nhận diện danh sách ảnh trong giai đoạn build/deploy.
+
+Không yêu cầu khai báo thủ công mỗi ảnh trong album.json.
+
+Không sử dụng GitHub API từ trình duyệt để quét thư mục.
+
+Không đưa GitHub token vào frontend.
+
+Không cần backend.
+
+==================================================
+7. AUTOMATED ALBUM GENERATOR
+==================================================
+
+Xây dựng một công cụ Node.js:
+
+scripts/build-album.mjs
+
+Chức năng:
+
+1. Quét đệ quy thư mục photos/.
+2. Nhận diện các định dạng ảnh hợp lệ.
+3. Đọc thông tin ảnh.
+4. Xác định kích thước và tỷ lệ ảnh.
+5. Phân loại theo thư mục.
+6. Tạo mã định danh ổn định cho ảnh.
+7. Sắp xếp ảnh theo tên tệp hoặc cấu hình.
+8. Tạo phiên bản ảnh tối ưu.
+9. Tạo thumbnail.
+10. Sinh data/album.json trong thư mục build output.
+
+Định dạng nguồn hỗ trợ:
+
+- JPG
+- JPEG
+- PNG
+- WEBP
+- AVIF nếu thư viện xử lý hỗ trợ ổn định.
+
+Sử dụng Sharp hoặc giải pháp Node.js tương đương có khả năng xử lý ảnh thực tế.
+
+Yêu cầu xử lý ảnh:
+
+- Tự động điều chỉnh EXIF orientation.
+- Giữ tỷ lệ gốc.
+- Không kéo giãn ảnh.
+- Tạo nhiều phiên bản kích thước phù hợp.
+- Tối ưu dung lượng hợp lý.
+- Bảo toàn chất lượng thị giác.
+- Loại bỏ metadata không cần thiết, đặc biệt thông tin vị trí GPS.
+- Không xuất ảnh lớn hơn độ phân giải nguồn nếu không cần.
+
+Có thể tạo các mức kích thước:
+- Thumbnail khoảng 480px.
+- Ảnh trung bình khoảng 960px.
+- Ảnh lớn khoảng 1600–1920px.
+
+Đây là các mốc tham khảo, cần xử lý phù hợp với kích thước và tỷ lệ ảnh nguồn.
+
+Chỉ xuất các phiên bản cần thiết.
+
+Tệp album.json đầu ra phải chứa các thông tin cần cho giao diện, ví dụ:
+
+- id
+- src
+- thumbnail
+- srcset hoặc variants
+- width
+- height
+- alt
+- caption
+- chapter
+- order
+- focalPoint nếu có
+
+Không nhúng ảnh Base64 vào JSON.
+
+Không đưa dữ liệu ảnh nhị phân vào album.json.
+
+==================================================
+8. CẤU HÌNH NỘI DUNG TÙY CHỈNH
+==================================================
+
+Sử dụng tệp:
+
+data/album.config.json
+
+Tệp này dùng để cấu hình nội dung thủ công, tách biệt với album.json được sinh tự động.
+
+Các thông tin có thể khai báo:
+
+- Tên album.
+- Tiêu đề Hero.
+- Phụ đề.
+- Ảnh bìa.
+- Thứ tự chương.
+- Tên hiển thị chương.
+- Mô tả chương.
+- Chú thích từng ảnh.
+- Thứ tự ưu tiên một số ảnh.
+- Focal point của ảnh.
+- Ảnh nổi bật.
+- Thông tin nhạc nền.
+
+Tất cả cấu hình thủ công đều là tùy chọn.
+
+Nếu thiếu cấu hình:
+- Sử dụng giá trị mặc định hợp lý.
+- Không khiến quá trình build thất bại.
+- Không bắt người dùng khai báo từng tệp ảnh.
+
+CƠ CHẾ MERGE:
+
+Build script phải kết hợp:
+
+A. Dữ liệu ảnh quét tự động.
+
+B. Dữ liệu tùy chỉnh từ album.config.json.
+
+Quy tắc:
+
+- Ảnh mới tự xuất hiện.
+- Ảnh bị xóa tự biến mất khỏi album sinh ra.
+- Thư mục mới tự trở thành chương mới.
+- Thông tin chỉnh thủ công được ưu tiên.
+- Không tự ghi đè album.config.json.
+- Mục cấu hình trỏ tới ảnh không còn tồn tại phải được cảnh báo rõ.
+- Thứ tự hiển thị phải ổn định giữa các lần build.
+
+==================================================
+9. CẤU TRÚC DỰ ÁN
+==================================================
+
+Đề xuất cấu trúc:
+
+Wedding-Showcase/
+│
+├── photos/
+│   ├── vietnam/
+│   ├── khmer/
+│   ├── indonesia/
+│   └── dalat/
+│
+├── data/
+│   └── album.config.json
+│
+├── public/
+│   ├── index.html
+│   │
+│   ├── css/
+│   │   └── style.css
+│   │
+│   ├── js/
+│   │   ├── app.js
+│   │   ├── gallery.js
+│   │   └── audio.js
+│   │
+│   ├── audio/
+│   │   └── wedding.mp3
+│   │
+│   ├── icons/
+│   │   ├── icon-180.png
+│   │   ├── icon-192.png
+│   │   └── icon-512.png
+│   │
+│   ├── manifest.webmanifest
+│   └── sw.js
+│
+├── scripts/
+│   └── build-album.mjs
+│
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+│
+├── package.json
+├── package-lock.json
+├── .gitignore
+└── README.md
+
+Build output:
+
+dist/
+├── index.html
+├── css/
+├── js/
+├── audio/
+├── icons/
+├── manifest.webmanifest
+├── sw.js
+├── data/
+│   └── album.json
+└── assets/
+    └── photos/
+        └── optimized images
+
+dist/ là thư mục tự tạo trong quá trình build.
+
+Không yêu cầu commit dist/ nếu GitHub Actions trực tiếp triển khai build artifact.
+
+==================================================
+10. GITHUB ACTIONS
+==================================================
+
+Tạo workflow:
+
+.github/workflows/deploy.yml
+
+YÊU CẦU:
+
+- Chạy khi push lên branch chính.
+- Cho phép chạy thủ công bằng workflow_dispatch.
+- Cài đặt Node.js.
+- Cài dependencies bằng npm ci.
+- Chạy npm run build.
+- Tự quét ảnh.
+- Tự tạo album.json.
+- Tự tạo ảnh tối ưu.
+- Kiểm tra kết quả build.
+- Deploy thư mục dist/ lên GitHub Pages.
+
+Sử dụng cơ chế GitHub Pages Actions deployment chính thức.
+
+Thiết lập permissions tối thiểu phù hợp:
+- contents: read
+- pages: write
+- id-token: write
+
+Không sử dụng personal access token trong frontend.
+
+Nếu quá trình build gặp lỗi:
+- Hiển thị thông tin lỗi rõ ràng trong workflow.
+- Không âm thầm tạo album JSON không hợp lệ.
+- Không triển khai một build lỗi.
+
+Nếu thiếu ảnh:
+- Có trạng thái album trống hợp lệ.
+- Giao diện không crash.
+- Có thể hiển thị thông báo thiết lập album ban đầu.
+
+Khi người dùng thêm ảnh mới, sau khi workflow thành công, website phải có thể tải dữ liệu mới mà không cần chỉnh sửa code.
+
+==================================================
+11. GITHUB PAGES PATH HANDLING
+==================================================
+
+Website phải hoạt động đúng với URL dạng:
+
+https://username.github.io/repository-name/
+
+Không giả định rằng website luôn chạy tại domain root.
+
+Không hardcode đường dẫn tuyệt đối như:
+
+/assets/photos/example.webp
+
+nếu đường dẫn đó có thể làm mất repository base path.
+
+Yêu cầu:
+
+- Dùng đường dẫn tương đối phù hợp.
+- Resolve asset URL theo document.baseURI hoặc base URL của website.
+- Các đường dẫn ảnh trong album.json phải thống nhất theo một quy ước.
+- Các đường dẫn ảnh được sinh ra nên tương đối với thư mục gốc của bản deploy.
+- Manifest start_url và scope tương thích với repository subpath.
+- Service Worker chỉ kiểm soát phạm vi ứng dụng.
+- Không lỗi đường dẫn khi đổi tên repository nếu toàn bộ website được triển khai lại đúng cách.
+
+Kiểm thử trực tiếp với GitHub Pages project subpath, không chỉ localhost.
+
+==================================================
+12. IOS WEBCLIP / PWA
+==================================================
+
+Tối ưu riêng cho Safari và Home Screen Web App trên iPhone.
+
+Thiết lập:
+
+- Viewport responsive.
+- viewport-fit=cover.
+- Web App Manifest.
+- display: standalone.
+- Apple touch icon.
+- Theme color phù hợp.
+- Apple mobile web app metadata cần thiết.
+- Icon thực tế đúng kích thước và định dạng.
+
+Hỗ trợ safe area:
+
+- Top status bar.
+- Dynamic Island / notch.
+- Bottom Home Indicator.
+- Màn hình bo góc.
+- Chuyển đổi kích thước viewport.
+
+Sử dụng CSS environment variables:
+
+env(safe-area-inset-top)
+env(safe-area-inset-bottom)
+env(safe-area-inset-left)
+env(safe-area-inset-right)
+
+Sử dụng 100svh hoặc 100dvh hợp lý, có fallback phù hợp.
+
+Không để:
+- Header chui vào vùng tai thỏ.
+- Nút nhạc chồng lên Dynamic Island.
+- Nút đóng lightbox nằm dưới thanh trạng thái.
+- Nội dung bị che bởi Home Indicator.
+- Xuất hiện cuộn ngang ngoài ý muốn.
+- Giao diện nhảy kích thước khi thanh trình duyệt thay đổi.
+
+Hỗ trợ thao tác chạm, vuốt, cuộn và phóng to mượt mà.
+
+Không vô hiệu hóa zoom toàn bộ website một cách không cần thiết.
+
+==================================================
+13. PERFORMANCE — ƯU TIÊN TUYỆT ĐỐI
+==================================================
+
+Hiệu năng là yêu cầu bắt buộc.
+
+Website phải ưu tiên hoạt động mượt trên iPhone thực tế, kể cả thiết bị không phải đời mới.
+
+Không đánh đổi hiệu năng chỉ để có thêm animation.
+
+A. IMAGE LOADING
+
+- Ảnh Hero được ưu tiên tải.
+- Không lazy-load ảnh Hero quan trọng.
+- Dùng responsive images.
+- Dùng srcset và sizes phù hợp.
+- Tải các ảnh phía dưới khi cần.
+- Dùng loading="lazy" hợp lý.
+- Dùng decoding="async" khi phù hợp.
+- Có width và height hoặc aspect-ratio để tránh layout shift.
+- Không tải đồng loạt toàn bộ ảnh lớn.
+- Không tự động preload hàng chục ảnh.
+- Sử dụng thumbnail cho gallery.
+- Chỉ tải ảnh lớn khi mở lightbox.
+
+B. ANIMATION
+
+Ưu tiên:
+- CSS transform.
+- CSS opacity.
+- IntersectionObserver.
+- requestAnimationFrame khi thật sự cần.
+
+Tránh:
+- Animation tác động liên tục lên layout.
+- Lạm dụng filter blur.
+- Parallax nhiều lớp.
+- Scroll event xử lý nặng.
+- Animation chạy vô hạn.
+- Thư viện animation lớn nếu không cần thiết.
+- Hiệu ứng khiến iPhone nóng hoặc giật.
+
+Tôn trọng prefers-reduced-motion.
+
+Không dùng scroll hijacking hoặc ép người xem cuộn theo animation.
+
+C. JAVASCRIPT
+
+- Sử dụng JavaScript thuần, có module rõ ràng.
+- Tránh framework nặng nếu không cần.
+- Hạn chế dependencies runtime.
+- Không thực hiện xử lý ảnh nặng trên thiết bị.
+- Không tạo listener trùng lặp.
+- Dọn dẹp listener khi thành phần không còn cần.
+- Không gây memory leak.
+- Xử lý lỗi fetch.
+- Không tạo vòng render vô hạn.
+
+D. LARGE ALBUM
+
+Thiết kế để có thể mở rộng từ vài chục lên hàng trăm ảnh.
+
+Nếu bộ sưu tập lớn:
+- Render ảnh theo từng nhóm khi phù hợp.
+- Chỉ tải tài nguyên cần thiết.
+- Hạn chế DOM quá lớn.
+- Giữ giao diện phản hồi nhanh.
+
+Không tự động tải tất cả ảnh toàn kích thước.
+
+==================================================
+14. SERVICE WORKER & CACHE
+==================================================
+
+Tích hợp Service Worker theo hướng an toàn, đơn giản, dễ kiểm soát.
+
+MỤC TIÊU:
+
+- Cache tài nguyên giao diện cần thiết.
+- Hỗ trợ mở lại ứng dụng khi mất mạng ở mức cơ bản.
+- Không cache toàn bộ album ảnh lớn.
+- Không gây tình trạng người dùng mãi nhìn thấy ảnh cũ.
+- Không để cache của phiên bản mới và cũ xung đột.
+
+CHIẾN LƯỢC:
+
+App shell:
+Cache hợp lý với cơ chế cập nhật phiên bản.
+
+HTML và dữ liệu album:
+Ưu tiên kiểm tra bản mới khi có mạng.
+
+Ảnh:
+Cache có giới hạn hoặc dựa vào HTTP/browser cache.
+
+Nhạc:
+Không bắt buộc cache offline.
+
+Khi triển khai phiên bản mới:
+- Có cơ chế cập nhật cache.
+- Xóa cache cũ không cần thiết.
+- Không làm hỏng phiên đang xem.
+- Tránh reload đột ngột trong lightbox.
+
+Không precache toàn bộ ảnh cưới.
+
+Không coi Service Worker là nơi lưu trữ ảnh không giới hạn.
+
+Nếu Service Worker không khả dụng:
+Website vẫn hoạt động bình thường khi có mạng.
+
+==================================================
+15. RESPONSIVE DESIGN
+==================================================
+
+Thiết kế Mobile-first.
+
+Ưu tiên trải nghiệm dọc trên iPhone.
+
+Bố cục phải tương thích:
+
+- iPhone màn hình nhỏ.
+- iPhone màn hình lớn.
+- iPad.
+- Desktop.
+
+Trên iPhone:
+- Hình ảnh rõ và đẹp.
+- Khoảng cách hợp lý.
+- Nút bấm vừa ngón tay.
+- Không có vùng tương tác quá nhỏ.
+- Tiêu đề không tràn màn hình.
+- Gallery cân đối.
+- Lightbox sử dụng gần như toàn bộ màn hình.
+
+Trên desktop:
+- Nội dung có max-width hợp lý.
+- Bố cục editorial mở rộng.
+- Hình ảnh không bị kéo giãn.
+- Giữ phong cách cao cấp như trên mobile.
+
+==================================================
+16. ACCESSIBILITY & RELIABILITY
+==================================================
+
+- Sử dụng semantic HTML.
+- Nút thật phải dùng button.
+- Ảnh có alt phù hợp.
+- Có keyboard navigation.
+- Có trạng thái focus rõ ràng.
+- Có hỗ trợ reduced motion.
+- Có trạng thái loading.
+- Có trạng thái lỗi ảnh.
+- Có trạng thái album trống.
+- Không làm website trắng màn hình nếu một ảnh bị lỗi.
+
+Dữ liệu từ JSON phải được xử lý an toàn.
+
+Không đưa nội dung không tin cậy trực tiếp vào innerHTML.
+
+Kiểm tra và chuẩn hóa đường dẫn ảnh.
+
+Không cho phép đường dẫn cấu hình tự ý truy cập tệp ngoài thư mục ảnh nguồn trong quá trình build.
+
+==================================================
+17. QUY TẮC THIẾT KẾ TRẢI NGHIỆM
+==================================================
+
+Website phải có chất lượng thẩm mỹ tương đương một trang trưng bày ảnh cưới chuyên nghiệp.
+
+Các chi tiết cần được chăm chút:
+
+- Typography.
+- Khoảng trắng.
+- Nhịp điệu bố cục.
+- Tỷ lệ hình ảnh.
+- Độ tương phản.
+- Chuyển đổi giữa nền sáng và nền tối.
+- Chuyển động khi cuộn.
+- Hiệu ứng mở ảnh.
+- Căn chỉnh trên màn hình iPhone.
+
+Ưu tiên hình ảnh thật của người dùng.
+
+Không phụ thuộc vào ảnh stock hoặc ảnh từ dịch vụ bên ngoài.
+
+Nếu chưa có ảnh:
+Hiển thị trạng thái trống được thiết kế đẹp, không làm giả ảnh cưới thật.
+
+Không tự ý thêm:
+- Trang đăng nhập.
+- Dashboard quản trị.
+- Bình luận.
+- Mạng xã hội.
+- Hiệu ứng 3D nặng.
+- Các chức năng không có trong yêu cầu.
+
+Không biến Wedding Showcase thành một ứng dụng quản lý ảnh phức tạp.
+
+Triết lý:
+
+"Content first. Photography first. Performance first."
+
+==================================================
+18. README & HƯỚNG DẪN
+==================================================
+
+Viết README.md chuyên nghiệp, bằng tiếng Việt.
+
+README cần giải thích:
+
+1. Wedding Showcase là gì.
+2. Cấu trúc dự án.
+3. Cách chạy thử trên máy.
+4. Cách tải ảnh lên GitHub.
+5. Cách tạo thư mục bộ sưu tập mới.
+6. Cách thay đổi ảnh bìa.
+7. Cách chỉnh tiêu đề và mô tả.
+8. Cách thêm hoặc thay nhạc nền.
+9. Cách GitHub Actions hoạt động.
+10. Cách bật GitHub Pages.
+11. Cách thêm website vào màn hình chính iPhone.
+12. Cách cập nhật và xử lý cache.
+13. Các lỗi thường gặp và cách kiểm tra.
+
+Hướng dẫn phải rõ ràng cho người không chuyên sâu về frontend.
+
+Không yêu cầu sửa mã nguồn cho các thao tác quản lý ảnh thông thường.
+
+==================================================
+19. TESTING & ACCEPTANCE CRITERIA
+==================================================
+
+Trước khi hoàn thành, phải kiểm tra các trường hợp:
+
+TEST 01:
+Thêm ảnh vào photos/vietnam/.
+Build thành công, ảnh xuất hiện trong chương Vietnam.
+
+TEST 02:
+Thêm thư mục photos/new-album/.
+Build thành công, xuất hiện chương mới.
+
+TEST 03:
+Xóa một ảnh nguồn.
+Ảnh không còn xuất hiện trong album.json mới.
+
+TEST 04:
+Chỉnh chú thích trong album.config.json.
+Thông tin tùy chỉnh được giữ nguyên sau khi build.
+
+TEST 05:
+Không có ảnh.
+Website hiển thị trạng thái trống, không crash.
+
+TEST 06:
+Ảnh lỗi hoặc không được hỗ trợ.
+Build ghi cảnh báo hoặc lỗi rõ ràng theo chính sách đã định.
+
+TEST 07:
+Truy cập website qua GitHub Pages repository subpath.
+Tất cả hình ảnh, CSS, JS, manifest và dữ liệu tải đúng.
+
+TEST 08:
+Mở Webclip từ Home Screen iPhone.
+Giao diện hiển thị đúng safe area.
+
+TEST 09:
+Mở lightbox, vuốt ảnh, zoom, kéo, đóng.
+Không lỗi cảm ứng, không mất vị trí cuộn.
+
+TEST 10:
+Nhạc chỉ phát khi người dùng chủ động bật.
+Không vi phạm autoplay restrictions.
+
+TEST 11:
+Cuộn trang nhanh qua nhiều chương.
+Không giật bất thường hoặc layout shift nghiêm trọng.
+
+TEST 12:
+Tải phiên bản mới sau khi deploy.
+Album và tài nguyên được cập nhật, không mắc kẹt cache cũ.
+
+TEST 13:
+Kiểm tra khi mạng chậm hoặc tạm mất mạng.
+Không gây crash hoặc vòng loading vô hạn.
+
+TEST 14:
+Kiểm tra trên iPhone Safari, Home Screen Web App và desktop browser.
+
+Nếu môi trường không cho phép kiểm thử trên iPhone thật, phải nêu rõ giới hạn này và cung cấp checklist kiểm thử thủ công.
+
+Không tuyên bố đã kiểm thử thành công những trường hợp chưa thực sự chạy.
+
+==================================================
+20. YÊU CẦU BÀN GIAO
+==================================================
+
+Bàn giao dự án với đầy đủ:
+
+- HTML.
+- CSS.
+- JavaScript.
+- Manifest.
+- Service Worker.
+- Cấu hình album.
+- Script build album.
+- GitHub Actions workflow.
+- package.json.
+- package-lock.json.
+- README.md.
+- Icon PWA phù hợp.
+
+Mã nguồn phải hoàn chỉnh, không phải pseudo-code.
+
+Không bỏ trống các chức năng chính.
+
+Không tạo nút bấm không có tác dụng.
+
+Không sử dụng dữ liệu giả làm giải pháp cuối cùng.
+
+Nếu môi trường cho phép tạo tệp:
+Xuất toàn bộ dự án thành một file ZIP với cấu trúc chuẩn.
+
+Nếu đang làm việc trực tiếp trong repository:
+Chỉnh sửa các tệp cần thiết và bảo toàn nội dung hiện có không liên quan.
+
+Nếu không thể tạo ZIP hoặc chỉnh repository:
+Cung cấp mã nguồn đầy đủ theo từng tệp và hướng dẫn ghép dự án.
+
+Sau khi hoàn thành:
+- Mô tả ngắn kiến trúc.
+- Giải thích cơ chế tự động cập nhật ảnh.
+- Hướng dẫn deploy.
+- Liệt kê những gì đã kiểm thử.
+- Nêu rõ những giới hạn còn tồn tại.
+
+==================================================
+21. NGUYÊN TẮC KỸ THUẬT CUỐI CÙNG
+==================================================
+
+Ưu tiên:
+
+1. Giao diện cao cấp.
+2. Trải nghiệm iOS mượt mà.
+3. Kiến trúc dễ bảo trì.
+4. Tự động cập nhật ảnh.
+5. Ít dependencies.
+6. Code rõ ràng, có tổ chức.
+7. Hoạt động ổn định trên GitHub Pages.
+
+Không over-engineering.
+
+Không sử dụng framework lớn chỉ vì muốn tạo cảm giác chuyên nghiệp.
+
+Không hy sinh hiệu năng vì hiệu ứng hình ảnh.
+
+Không xây dựng những chức năng ngoài phạm vi.
+
+Nếu một hiệu ứng quá nặng cho iPhone, hãy thay bằng phương án nhẹ hơn nhưng vẫn giữ chất lượng thẩm mỹ.
+
+Nếu có nhiều phương án kỹ thuật, hãy ưu tiên giải pháp đơn giản, ổn định, dễ kiểm tra và dễ bảo trì.
+
+KẾT QUẢ MONG MUỐN:
+
+Một Webclip ảnh cưới có trải nghiệm như một trang trưng bày cao cấp được thiết kế riêng.
+
+Người xem mở Webclip, thưởng thức câu chuyện tình yêu qua những bức ảnh lớn, cuộn trang mượt, xem ảnh toàn màn hình và có thể bật nhạc nền.
+
+Người quản lý chỉ cần thêm ảnh vào GitHub repository, hệ thống tự động xây dựng lại danh sách ảnh và cập nhật Website sau khi GitHub Actions triển khai thành công.
+
+Hãy triển khai dự án một cách chuyên nghiệp, đầy đủ và có thể sử dụng thực tế.
