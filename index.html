@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Prompt AI">
+  <meta name="theme-color" content="#5C5C5C">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <meta name="description" content="Kho prompt cá nhân. Chọn câu lệnh và gửi văn bản trực tiếp đến phím tắt Prompt AI.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+  <title>Prompt AI</title>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="app" id="app">
+    <header>
+      <h1 class="mark">Prompt <span>AI</span></h1>
+      <button class="brand" id="helpBtn" type="button" aria-label="Hướng dẫn Prompt AI">Sentechtipsvn</button>
+    </header>
+    <div class="search-row">
+      <button class="fav" id="favBtn" type="button" aria-label="Chỉ hiện yêu thích" aria-pressed="false">★</button>
+      <label class="field">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Tìm tên hoặc nội dung prompt" aria-label="Tìm prompt" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+      </label>
+      <button class="store" id="categoryBtn" type="button" aria-label="Lọc thư mục" aria-haspopup="dialog">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/><path d="M3 8h18"/></svg>
+      </button>
+    </div>
+    <div class="summary">
+      <p id="summary" role="status">Đang mở kho prompt…</p>
+      <button class="refresh" id="refreshBtn" type="button" aria-label="Kiểm tra prompt mới">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"/></svg>
+      </button>
+    </div>
+    <main class="list" id="list" aria-label="Danh sách prompt" aria-busy="true"></main>
+    <div class="update" id="update" hidden><span>Đã có phiên bản mới.</span><button class="x" id="updateBtn" type="button">Cập nhật</button></div>
+    <footer><span id="connection"></span><span>Chạm prompt để chạy phím tắt ↗</span></footer>
+    <noscript><p class="empty">Bật JavaScript trong Safari để sử dụng Prompt AI.</p></noscript>
+  </div>
+  <dialog class="sheet" id="categories" aria-labelledby="categoriesTitle">
+    <div class="panel">
+      <div class="row"><h2 id="categoriesTitle">Thư mục</h2><button class="x" type="button" data-close>Xong</button></div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </div>
+  </dialog>
+  <dialog class="sheet" id="preview" aria-labelledby="previewTitle">
+    <div class="panel preview-panel">
+      <div class="row"><h2 id="previewTitle"></h2><button class="x" type="button" data-close>Xong</button></div>
+      <p class="preview-category" id="previewCategory"></p>
+      <pre id="previewText" tabindex="0" aria-label="Nội dung prompt"></pre>
+      <a class="go" id="previewRun" href="#">Gửi sang Prompt AI ↗</a>
+    </div>
+  </dialog>
+  <dialog class="sheet" id="help" aria-labelledby="helpTitle">
+    <div class="panel">
+      <div class="row"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><button class="x" type="button" data-close>Xong</button></div>
+      <h2 id="helpTitle">Prompt AI</h2>
+      <ol class="steps"><li>Tạo phím tắt có tên <strong>Prompt AI</strong>.</li><li>Dùng biến <strong>Đầu vào phím tắt</strong> để nhận toàn bộ văn bản prompt.</li><li>Chạm một prompt trong danh sách để gửi và chạy phím tắt.</li></ol>
+      <p class="steps">Sếp có thể nối thêm bước chọn ảnh, nhập yêu cầu, dịch hoặc gọi API ngay trong phím tắt.</p>
+      <a class="go" href="./Prompt-AI.mobileconfig" download>Cài webclip bằng cấu hình</a>
+      <p class="steps install-note">Hoặc mở trang bằng Safari → Chia sẻ → Thêm vào Màn hình chính.</p>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

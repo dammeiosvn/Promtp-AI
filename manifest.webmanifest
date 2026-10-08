@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "Prompt AI",
+  "short_name": "Prompt AI",
+  "description": "Kho prompt gửi văn bản sang phím tắt Prompt AI",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#5C5C5C",
+  "theme_color": "#5C5C5C",
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
