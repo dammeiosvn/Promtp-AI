@@ -1,0 +1,34 @@
+[STRICT IDENTITY PRESERVATION – REFERENCE PHOTO BASED]
+
+Use the reference photo as the absolute identity reference for both the man and the woman.
+
+Perfectly preserve the exact facial features, facial structure, skin tone, eye shape, nose, lips, jawline, cheeks, forehead, and overall facial proportions of both people from the reference photo. They must remain clearly recognizable as the same real couple.
+
+Do not generate new faces. Do not over-beautify, over-smooth, reshape, slim, or alter their identity.
+
+SCENE:
+Create a romantic couple portrait in Da Lat at sunrise, with the couple sitting together on a dreamy pine hill overlooking Ho Than Tho (Lake of Sighs). The setting should include a gently sloping pine-covered hillside, dew-covered grass, tall pine trees, the calm lake in the distance, soft morning mist, low fog, and early sunrise light. The atmosphere should feel cool, fresh, peaceful, and unmistakably like Da Lat in the early morning.
+
+POSE:
+Show the couple sitting side by side on the pine hill, close together, facing toward the lake. Their bodies should naturally follow the view, while their faces remain at least partially visible. They may lean gently toward each other, sit shoulder to shoulder, or let the woman softly rest against the man. The pose should feel intimate, calm, tender, and natural.
+
+STYLING:
+Dress the couple in elegant, youthful, romantic outfits suitable for cool Da Lat weather. Use soft fashionable layers such as knitwear, cardigans, long coats, scarves, midi skirts, trousers, boots, or soft neutral-toned couple outfits. The styling should feel tasteful, photogenic, and cinematic.
+
+HAIR STYLING:
+Automatically refine and restyle the woman’s hair to suit the misty sunrise concept. Her hairstyle may be adjusted if needed, but her facial identity must remain unchanged. Use soft, neat, romantic hair styling such as gentle waves, a tidy half-up style, or a polished natural look. Hair must look clean, intentional, elegant, and well-groomed, not messy, frizzy, tangled, or randomly windblown. The man’s hair should also look tidy, natural, and polished.
+
+VISUAL STYLE:
+Photorealistic, cinematic, romantic editorial couple photography, soft sunrise light, dreamy mist, realistic skin texture, shallow depth of field, soft haze, elegant composition, high detail, and emotional storytelling. The color palette should feel cool, fresh, slightly pastel, and softly glowing.
+
+ANATOMY & QUALITY LOCK:
+- Exactly two people only: one man and one woman.
+- Each person must have one head, two arms, two hands, two legs, and two feet.
+- Each visible hand must have exactly five natural fingers.
+- No extra fingers, missing fingers, fused fingers, malformed hands, duplicated limbs, twisted wrists, broken joints, or distorted anatomy.
+- No extra people, no random background faces, no duplicated body parts.
+- Keep both bodies natural, realistic, proportionate, and physically believable.
+- Preserve identity faithfully above all else.
+
+MOOD:
+Romantic, peaceful, dreamy, fresh, intimate, poetic, tender Da Lat sunrise love-story atmosphere.
