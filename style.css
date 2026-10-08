@@ -115,6 +115,16 @@ ol.steps { padding-left: 22px; }.steps li { margin-bottom: 8px; }.steps strong {
 .toast { position: fixed; left: 16px; right: 16px; top: calc(10px + var(--safe-t)); transform: translateY(-160%); opacity: 0; z-index: 9; background: #0A84FF; color: #fff; border-radius: 16px; padding: 12px 14px; font-size: 14px; font-weight: 600; text-align: center; pointer-events: none; transition: transform .25s ease, opacity .25s ease; }
 .toast.on { transform: translateY(0); opacity: 1; }
 footer { margin: auto 8px 0; padding-top: 8px; display: flex; justify-content: space-between; gap: 10px; font-size: 11px; line-height: 1.4; color: var(--mute); }
-.update { display: flex; align-items: center; justify-content: space-between; margin: 0 8px 18px; gap: 12px; font-size: 13px; }
+.update-popup { position: fixed; inset: 0; width: min(360px, calc(100% - 40px - var(--safe-l) - var(--safe-r))); max-height: calc(100dvh - 40px - var(--safe-t) - var(--safe-b)); margin: auto; padding: 0; border: 1px solid var(--line); border-radius: 24px; background: var(--bg); color: var(--ink); box-shadow: -6px -6px 14px var(--hi), 7px 8px 24px var(--lo); overflow: auto; }
+.update-popup::backdrop { background: rgba(0,0,0,.42); }
+.update-panel { padding: 24px; text-align: center; }
+.update-symbol { margin: 0 auto 14px; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; font-size: 30px; box-shadow: inset 1px 1px 0 rgba(255,255,255,.2), -3px -3px 8px var(--hi), 4px 5px 10px var(--lo); }
+.update-panel h2 { margin: 0; font-size: 19px; line-height: 1.35; }
+.update-panel p { margin: 12px 0 22px; color: var(--mute); font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; }
+.update-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.update-actions .x { min-height: 46px; padding: 10px; font-size: 14px; }
+#updateBtn { border: 1px solid rgba(255,255,255,.45); }
+.update-actions .x:disabled { opacity: .55; cursor: wait; }
+.refresh.on { color: #F3D27A; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; }.brand { color: var(--mute); }.fav { opacity: 1; } }
 @media (max-width: 360px) { .app { padding-left: calc(14px + var(--safe-l)); padding-right: calc(14px + var(--safe-r)); }.search-row { gap: 8px; }.field { padding: 0 10px; }.field input { font-size: 16px; } }

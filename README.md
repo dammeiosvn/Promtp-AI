@@ -20,7 +20,9 @@ Dịch văn bản.txt
 - **Nội dung tệp** → văn bản đầu vào của phím tắt, giữ nguyên xuống dòng, Unicode, emoji và ký tự đặc biệt.
 - Quét thư mục con tự động, nhận cả `.TXT`. Tệp rỗng và thư mục hạ tầng (`scripts`, `tests`, `icons`, `assets`, `_site`, `node_modules`, thư mục bắt đầu bằng dấu chấm) được bỏ qua.
 
-Mỗi lần push vào `main`, GitHub Actions tự tạo danh mục `prompts.json` và triển khai trang. **Không phải sửa HTML, JSON hay khai báo tên thư mục.** Nếu Pages xuất bản trực tiếp nhánh `main`, webclip tự quét repo public qua GitHub API và đọc các tệp `.txt`; không cần danh mục build. Nhấn nút làm mới trong webclip sau khi thêm prompt nếu cần.
+Mỗi lần push vào `main`, GitHub Actions tự tạo danh mục `prompts.json` và triển khai trang. **Không phải sửa HTML, JSON hay khai báo tên thư mục.** Nếu Pages xuất bản trực tiếp nhánh `main`, webclip tự quét repo public qua GitHub API và đọc các tệp `.txt`; không cần danh mục build.
+
+Sau khi triển khai xong, mở lại webclip: nếu kho có prompt được thêm, sửa hoặc xóa, **popup cập nhật xuất hiện giữa màn hình**, kèm số thay đổi. Bấm **Cập nhật** để dùng kho mới; **Lát nữa** giữ kho đang dùng. Nút ↻ ở đầu trang mở lại popup khi còn bản chờ cập nhật. Bản webclip mới cũng dùng popup này, không có nút cập nhật ở cuối danh sách.
 
 Bộ quét chỉ tải lại nội dung các tệp đã đổi và lưu kho prompt trên thiết bị. Cách đọc trực tiếp repo public chịu giới hạn API của GitHub; dùng workflow build bên dưới để tránh phụ thuộc API. Nếu API tạm lỗi, kho đã lưu vẫn mở được.
 
@@ -52,7 +54,8 @@ Nếu dùng tên miền riêng, đặt Repository variable **`PAGES_BASE_URL`** 
 - Chế độ độc lập, thanh trạng thái trong suốt, vùng an toàn cho tai thỏ/Dynamic Island và thanh Home.
 - Biểu tượng PNG 180/192/512 px, manifest dùng đường dẫn tương đối đúng phạm vi repo Pages.
 - Service worker lưu giao diện và toàn bộ kho prompt để mở ngoại tuyến sau lần tải đầu; tác vụ AI trong phím tắt có thể vẫn cần mạng.
-- Prompt được kiểm tra lại khi mở/đưa app về trước và khi bấm làm mới; bản giao diện mới có nút **Cập nhật**.
+- Mở kho đã chấp nhận từ bộ nhớ thiết bị trước, rồi kiểm tra bản mới khi mở/đưa app về trước (cách lần kiểm tra trước ít nhất 60 giây), khi bấm ↻ và mỗi 5 phút lúc app đang hiển thị. Lần đầu chưa có kho sẽ tải trực tiếp, không báo cập nhật giả.
+- Bản mới được tải trước và chờ trong popup; chỉ thay kho sau khi bấm **Cập nhật**. Bỏ qua popup không làm mất bản kho đã chấp nhận khi mở lại. Thay đổi mã giao diện không bị tính nhầm thành prompt mới; lỗi mạng giữ kho cũ.
 - Yêu thích lưu theo đường dẫn tệp trên thiết bị; đổi tên hoặc di chuyển tệp sẽ đổi định danh ghim.
 - Tệp `Prompt-AI.mobileconfig` được tạo khi build: một webclip toàn màn hình, có biểu tượng, cho phép gỡ; không chứa Wi-Fi, VPN, DNS hay quản lý thiết bị. Cấu hình không ký số.
 - Safari có thể dọn bộ nhớ ngoại tuyến khi thiếu dung lượng; sau đó cần mở có mạng một lần để lưu lại.

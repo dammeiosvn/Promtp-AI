@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { shortcutURL, normalize, validateCatalog, matches } from '../core.js';
+import { shortcutURL, normalize, validateCatalog, matches, catalogChanges } from '../core.js';
 
 test('Shortcut receives exact raw text, including Vietnamese, CRLF, URL symbols, emoji and code', () => {
   const text = 'Tiếng Việt: Sếp & em + 100% # ?\r\n<script>alert("x")</script>\n👩🏽‍💻\thttps://example.com/?a=1&b=2';
@@ -28,4 +28,12 @@ test('Reject broken catalogs instead of rendering partial text', () => {
   assert.equal(validateCatalog({ schema: 1, version: 'v', prompts: [item] }).prompts.length, 1);
   assert.throws(() => validateCatalog({ schema: 1, version: 'v', prompts: [item, item] }));
   assert.throws(() => validateCatalog({ schema: 1, version: 'v', prompts: [{ ...item, text: null }] }));
+});
+test('Prompt update notice counts additions, edits and deletions, not code-only tree changes', () => {
+  const a = { id: 'A.txt', title: 'A', category: 'Chung', text: 'old' };
+  const b = { ...a, id: 'B.txt' };
+  const current = { version: 'github-before', prompts: [a, b] };
+  assert.equal(catalogChanges(current, { version: 'github-code-only', prompts: [b, a] }).total, 0);
+  assert.deepEqual(catalogChanges(current, { prompts: [{ ...a, text: 'new' }, { ...b, id: 'C.txt' }] }), { added: 1, updated: 1, removed: 1, total: 3 });
+  assert.equal(catalogChanges(current, { prompts: [{ ...a, title: 'Tên mới' }, b] }).updated, 1);
 });

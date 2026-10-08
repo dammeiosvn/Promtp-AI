@@ -56,7 +56,7 @@ export async function fetchRepositoryCatalog(previous = null, fetcher = fetch) {
   return validateCatalog({ schema: 1, version: 'github-' + tree.sha, prompts: rows });
 }
 
-async function readSaved() {
+export async function readSavedCatalog() {
   try {
     if (!globalThis.caches) return null;
     const cache = await caches.open(DATA_CACHE);
@@ -65,7 +65,7 @@ async function readSaved() {
   } catch { return null; }
 }
 
-async function saveCatalog(catalog) {
+export async function saveCatalog(catalog) {
   try {
     if (!globalThis.caches) return;
     const cache = await caches.open(DATA_CACHE);
@@ -73,8 +73,8 @@ async function saveCatalog(catalog) {
   } catch { /* Đọc prompt vẫn hoạt động khi Safari không cho lưu bộ nhớ. */ }
 }
 
-export async function readCatalog(previous = null) {
-  const saved = previous || await readSaved();
+export async function readCatalog(previous = null, { persist = true } = {}) {
+  const saved = previous || await readSavedCatalog();
   let catalog;
   try {
     // Ưu tiên dữ liệu đã build: không cần gọi API GitHub, dùng được cả repo private.
@@ -85,6 +85,7 @@ export async function readCatalog(previous = null) {
     try { catalog = await fetchRepositoryCatalog(saved); }
     catch (error) { if (saved) return { catalog: saved, cached: true }; throw error; }
   }
-  await saveCatalog(catalog);
+  // Kiểm tra nền không ghi đè kho đã được người dùng chấp nhận.
+  if (persist) await saveCatalog(catalog);
   return { catalog, cached: false };
 }

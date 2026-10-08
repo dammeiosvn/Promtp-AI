@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { fetchRepositoryCatalog } from '../catalog.js';
+import { fetchRepositoryCatalog, readCatalog, readSavedCatalog, saveCatalog } from '../catalog.js';
 
 const entry = (path, sha, extra = {}) => ({ path, sha, type: 'blob', mode: '100644', ...extra });
 function fixture(tree, contents) {
@@ -51,4 +51,22 @@ test('API limit and truncated tree fail clearly instead of returning an empty or
 test('A failed prompt download does not silently omit that prompt', async () => {
   const f = fixture({ sha: 'tree', tree: [entry('a.txt', 'missing')] }, {});
   await assert.rejects(fetchRepositoryCatalog(null, f.fetcher), /HTTP 404/);
+});
+test('Background checks preserve the accepted offline catalog until the user applies the update', async () => {
+  const oldFetch = globalThis.fetch, oldCaches = globalThis.caches;
+  const accepted = { schema: 1, version: 'accepted', prompts: [{ id: 'A.txt', title: 'A', category: 'Chung', text: 'old' }] };
+  const next = { ...accepted, version: 'new', prompts: [{ ...accepted.prompts[0], text: 'new' }] };
+  let stored = new Response(JSON.stringify(accepted));
+  globalThis.caches = { open: async () => ({ match: async () => stored.clone(), put: async (_key, response) => { stored = response.clone(); } }) };
+  try {
+    globalThis.fetch = async () => new Response(JSON.stringify(next));
+    assert.equal((await readCatalog(accepted, { persist: false })).catalog.version, 'new');
+    assert.equal((await readSavedCatalog()).version, 'accepted', 'Later/reopen must still start with the old catalog');
+    globalThis.fetch = async () => { throw new Error('offline'); };
+    const offline = await readCatalog(null, { persist: false });
+    assert.equal(offline.cached, true);
+    assert.equal(offline.catalog.version, 'accepted');
+    await saveCatalog(next);
+    assert.equal((await readSavedCatalog()).version, 'new', 'The accepted update becomes the offline version');
+  } finally { globalThis.fetch = oldFetch; globalThis.caches = oldCaches; }
 });

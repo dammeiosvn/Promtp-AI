@@ -1,6 +1,6 @@
 const BUILD_VERSION = '__BUILD_VERSION__';
 const SOURCE_MODE = BUILD_VERSION.startsWith('__');
-const VERSION = SOURCE_MODE ? 'source-v2' : BUILD_VERSION;
+const VERSION = SOURCE_MODE ? 'source-v3' : BUILD_VERSION;
 const PREFIX = 'prompt-ai-' + new URL(self.registration.scope).pathname + '-';
 const CACHE = PREFIX + VERSION;
 const ROOT = new URL('./', self.registration.scope);

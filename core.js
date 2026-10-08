@@ -17,3 +17,14 @@ export function validateCatalog(data) {
 export function matches(item, query, category, favoritesOnly, favorites) {
   return (!category || item.category === category) && (!favoritesOnly || favorites.has(item.id)) && (!query || item.search.includes(query));
 }
+export function catalogChanges(current, next) {
+  const before = new Map(current.prompts.map(item => [item.id, item]));
+  let added = 0, updated = 0;
+  for (const item of next.prompts) {
+    const old = before.get(item.id);
+    if (!old) added++;
+    else if (['title', 'category', 'text'].some(key => old[key] !== item[key])) updated++;
+    before.delete(item.id);
+  }
+  return { added, updated, removed: before.size, total: added + updated + before.size };
+}

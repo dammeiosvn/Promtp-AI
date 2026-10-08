@@ -40,10 +40,20 @@
       </button>
     </div>
     <main class="list" id="list" aria-label="Danh sách prompt" aria-busy="true"></main>
-    <div class="update" id="update" hidden><span>Đã có phiên bản mới.</span><button class="x" id="updateBtn" type="button">Cập nhật</button></div>
     <footer><span id="connection"></span><span>Chạm prompt để chạy phím tắt ↗</span></footer>
     <noscript><p class="empty">Bật JavaScript trong Safari để sử dụng Prompt AI.</p></noscript>
   </div>
+  <dialog class="update-popup" id="update" aria-labelledby="updateTitle" aria-describedby="updateMessage">
+    <div class="update-panel">
+      <div class="update-symbol" aria-hidden="true">↻</div>
+      <h2 id="updateTitle">Kho prompt có cập nhật</h2>
+      <p id="updateMessage">Đã có bản mới. Bấm Cập nhật để sử dụng.</p>
+      <div class="update-actions">
+        <button class="x" id="updateLater" type="button" data-close>Lát nữa</button>
+        <button class="x" id="updateBtn" type="button" autofocus>Cập nhật</button>
+      </div>
+    </div>
+  </dialog>
   <dialog class="sheet" id="categories" aria-labelledby="categoriesTitle">
     <div class="panel">
       <div class="row"><h2 id="categoriesTitle">Thư mục</h2><button class="x" type="button" data-close>Xong</button></div>
