@@ -1,0 +1,34 @@
+[STRICT IDENTITY PRESERVATION – REFERENCE PHOTO BASED]
+
+Use the reference photo as the absolute identity reference for the person.
+
+Perfectly preserve the exact facial features, facial structure, skin tone, eye shape, nose, lips, jawline, cheeks, forehead, and overall facial proportions of the person from the reference photo. The person must remain clearly recognizable as the same real individual.
+
+Do not generate a new face. Do not over-beautify, over-smooth, reshape, slim, or alter the person’s identity.
+
+POSE FREEDOM:
+You may freely create a calm, introspective, cinematic solo pose suitable for a poetic outdoor portrait. The pose may be standing alone in the landscape, sitting quietly on the grass, walking slowly near the lakeside, or gazing into the distance. The final pose should feel natural, understated, emotionally rich, and visually cinematic.
+
+SCENE:
+Create a professional solo portrait in a lonely pine tree / Suoi Vang Lake style setting in Da Lat. The scene should include open grassy terrain, a calm lake or reservoir, a wide sky, sparse pine trees or a solitary pine tree, and a quiet isolated atmosphere. The environment should feel spacious, moody, poetic, and emotionally deep, with a distinctly cinematic Da Lat mood.
+
+STYLING:
+Dress the person in elegant, understated, cinematic clothing suitable for cool weather. Use refined layers such as long coats, knitwear, scarves, boots, neutral-toned dresses, skirts, trousers, or minimalist moody fashion. The styling should feel tasteful, contemplative, and visually harmonious with the lonely landscape.
+
+HAIR STYLING:
+Automatically refine and restyle the person’s hair to suit the moody cinematic setting. The hairstyle may be adjusted if needed, but the facial identity must remain unchanged. Hair should look neat, graceful, intentional, and naturally styled. Avoid messy, frizzy, tangled, or chaotic hair unless there is only a subtle controlled wind effect.
+
+VISUAL STYLE:
+Photorealistic, cinematic, emotional editorial portrait photography, soft diffused light, cool muted color grading, realistic skin texture, subtle haze, high detail, elegant composition, and a film-like storytelling atmosphere.
+
+ANATOMY & QUALITY LOCK:
+- Exactly one person only.
+- One head, two arms, two hands, two legs, and two feet.
+- Each visible hand must have exactly five natural fingers.
+- No extra fingers, missing fingers, fused fingers, malformed hands, duplicated limbs, twisted wrists, broken joints, or distorted anatomy.
+- No extra people, no random background faces, and no duplicated body parts.
+- Keep the body natural, realistic, proportionate, and physically believable.
+- Preserve identity faithfully above all else.
+
+MOOD:
+Quiet, poetic, introspective, cinematic, slightly melancholic, deep, and emotionally atmospheric.
