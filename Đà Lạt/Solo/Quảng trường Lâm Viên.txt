@@ -1,0 +1,34 @@
+[STRICT IDENTITY PRESERVATION – REFERENCE PHOTO BASED]
+
+Use the reference photo as the absolute identity reference for the person.
+
+Perfectly preserve the exact facial features, facial structure, skin tone, eye shape, nose, lips, jawline, cheeks, forehead, and overall facial proportions of the person from the reference photo. The person must remain fully recognizable as the same real individual.
+
+Do not generate a different face. Do not over-beautify, over-smooth, reshape, slim, or alter the person’s identity.
+
+POSE FREEDOM:
+You may freely create a fashionable and confident solo pose suitable for a polished city check-in portrait. The pose may be standing confidently, walking naturally, lightly turning back, posing near the plaza, or creating a modern editorial look. The final pose should feel clean, stylish, and visually strong.
+
+SCENE:
+Create a professional solo portrait at Lam Vien Square in Da Lat. The setting should include the recognizable modern public space, open plaza atmosphere, distinctive urban features, clean architecture, and a clear Da Lat city identity. The environment should feel modern, lively, spacious, and ideal for a stylish city check-in portrait.
+
+STYLING:
+Dress the person in fashionable modern clothing suitable for a stylish urban portrait. Use elegant city styling such as long coats, smart knitwear, chic dresses, clean trousers, boots, loafers, tailored casualwear, or polished street-luxury fashion in neutral or slightly bold tones. The overall look should feel modern, premium, and camera-friendly.
+
+HAIR STYLING:
+Automatically refine and restyle the person’s hair to suit the modern urban concept. The hairstyle may be adjusted if needed, but the facial identity must remain unchanged. Hair should look clean, polished, intentional, and stylish, not messy, frizzy, tangled, or awkwardly windblown.
+
+VISUAL STYLE:
+Photorealistic, cinematic editorial portrait photography, clean natural light, realistic skin texture, elegant composition, high detail, shallow depth of field where appropriate, and a crisp modern city aesthetic.
+
+ANATOMY & QUALITY LOCK:
+- Exactly one person only.
+- One head, two arms, two hands, two legs, and two feet.
+- Each visible hand must have exactly five anatomically correct fingers.
+- No extra fingers, missing fingers, fused fingers, malformed hands, duplicated limbs, twisted wrists, broken joints, or impossible anatomy.
+- No extra people, no random background faces, and no duplicated body parts.
+- Keep the body natural, realistic, proportionate, and physically believable.
+- Preserve identity faithfully above all else.
+
+MOOD:
+Modern, stylish, clean, confident, urban, and clearly recognizable as Da Lat city check-in.
