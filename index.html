@@ -40,6 +40,14 @@
       </button>
     </div>
     <main class="list" id="list" aria-label="Danh sách prompt" aria-busy="true"></main>
+    <nav class="pagination" id="pagination" aria-label="Phân trang prompt" hidden>
+      <div class="page-numbers" id="pageNumbers"></div>
+      <div class="page-controls">
+        <button class="page-step" id="previousPage" type="button">‹ Trang trước</button>
+        <span id="pageStatus"></span>
+        <button class="page-step" id="nextPage" type="button">Trang sau ›</button>
+      </div>
+    </nav>
     <footer><span id="connection"></span><span>Chạm prompt để chạy phím tắt ↗</span></footer>
     <noscript><p class="empty">Bật JavaScript trong Safari để sử dụng Prompt AI.</p></noscript>
   </div>
@@ -57,6 +65,7 @@
   <dialog class="sheet" id="categories" aria-labelledby="categoriesTitle">
     <div class="panel">
       <div class="row"><h2 id="categoriesTitle">Thư mục</h2><button class="x" type="button" data-close>Xong</button></div>
+      <p class="folder-hint">Chọn thư mục để xem cả các thư mục con.</p>
       <div class="category-grid" id="categoryGrid"></div>
     </div>
   </dialog>

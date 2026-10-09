@@ -70,3 +70,34 @@ test('Background checks preserve the accepted offline catalog until the user app
     assert.equal((await readSavedCatalog()).version, 'new', 'The accepted update becomes the offline version');
   } finally { globalThis.fetch = oldFetch; globalThis.caches = oldCaches; }
 });
+
+test('Unchanged version downloads only the small version file, including a pending catalog', async () => {
+  const saved = { schema: 1, version: 'same', prompts: [{ id: 'A.txt', title: 'A', category: 'Chung', text: 'text' }] };
+  const calls = [];
+  const fetcher = async url => {
+    calls.push(url);
+    assert(url.endsWith('/version.json'));
+    return new Response(JSON.stringify({ schema: 1, version: 'same' }));
+  };
+  const result = await readCatalog(saved, { persist: false, fetcher });
+  assert.equal(result.catalog, saved);
+  assert.equal(result.unchanged, true);
+  assert.equal(calls.length, 1);
+});
+
+test('Changed or missing version fetches the full catalog once and preserves exact text', async () => {
+  const saved = { schema: 1, version: 'old', prompts: [] };
+  const next = { schema: 1, version: 'new', prompts: [{ id: 'A.txt', title: 'A', category: 'Chung', text: 'Giữ nguyên\r\n& + 👑' }] };
+  for (const status of [200, 404]) {
+    const calls = [];
+    const fetcher = async url => {
+      calls.push(url);
+      if (url.endsWith('/version.json')) return status === 200 ? new Response(JSON.stringify({ schema: 1, version: 'new' })) : new Response('', { status });
+      assert(url.endsWith('/prompts.json'));
+      return new Response(JSON.stringify(next));
+    };
+    const result = await readCatalog(saved, { persist: false, fetcher });
+    assert.equal(result.catalog.prompts[0].text, next.prompts[0].text);
+    assert.equal(calls.length, 2);
+  }
+});

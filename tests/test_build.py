@@ -2,6 +2,8 @@ import importlib.util
 import os
 import plistlib
 import tempfile
+import json
+import shutil
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -44,6 +46,24 @@ class DiscoveryTests(unittest.TestCase):
             (root / 'bad.txt').write_bytes(b'\xff')
             with self.assertRaisesRegex(ValueError, 'bad.txt'):
                 build.discover(root)
+
+    def test_build_emits_small_version_file_and_updates_it_after_prompt_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in build.STATIC:
+                shutil.copyfile(build.ROOT / name, root / name)
+            shutil.copytree(build.ROOT / 'icons', root / 'icons')
+            prompt = root / 'Mới.txt'
+            prompt.write_text('nguyên văn', encoding='utf-8')
+            output = build.build(root)
+            catalog = json.loads((output / 'prompts.json').read_text())
+            version = json.loads((output / 'version.json').read_text())
+            self.assertEqual(version, {'schema': 1, 'version': catalog['version']})
+            self.assertLess((output / 'version.json').stat().st_size, 100)
+            prompt.unlink()
+            build.build(root)
+            self.assertNotEqual(json.loads((output / 'version.json').read_text())['version'], version['version'])
+            self.assertEqual(json.loads((output / 'prompts.json').read_text())['prompts'], [])
 
     def test_profile_has_fullscreen_icon_and_correct_project_url(self):
         with patch.dict(os.environ, {'GITHUB_REPOSITORY': 'dammeiosvn/Promtp-AI', 'PAGES_BASE_URL': ''}):

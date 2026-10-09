@@ -4,6 +4,10 @@ Kho prompt cá nhân chạy trên **GitHub Pages**, dùng như webclip trên iPh
 
 Giao diện kế thừa [Bundle-ID](https://github.com/dammeiosvn/Bundle-ID): nền `#5C5C5C`, màu chữ, bóng nổi, ô tìm kiếm và bảng thao tác. Mỗi hàng hiện tên prompt và hai dòng xem trước; có ghim yêu thích, xem toàn văn, tìm kiếm không dấu và lọc thư mục.
 
+Danh sách hiển thị **tối đa 20 prompt mỗi trang**. Bấm số **1, 2, 3…**, **Trang trước** hoặc **Trang sau** để thay danh sách và trở về đầu trang; không tải lại website hay tải lại kho prompt. Trang cuối chỉ hiện số prompt còn lại. Tìm kiếm, chọn thư mục hoặc bật/tắt bộ lọc yêu thích đều trở về trang 1; phân trang áp dụng trên toàn bộ kết quả phù hợp.
+
+Bảng **Thư mục** hiển thị cây có nút mở/thu gọn. Chọn thư mục cha xem cả prompt trong các thư mục con, số lượng cạnh tên cũng tính cả thư mục con. Ví dụ chọn **Đà Lạt** bao gồm **Đà Lạt/Solo**; chọn **Solo** chỉ xem nhánh đó. Thư mục cha không có tệp trực tiếp vẫn tự xuất hiện nếu có prompt trong thư mục con.
+
 ## Thêm prompt
 
 Tạo thư mục bất kỳ trong repo, thêm các tệp **`.txt` lưu bằng UTF-8**, rồi commit vào `main`:
@@ -55,6 +59,7 @@ Nếu dùng tên miền riêng, đặt Repository variable **`PAGES_BASE_URL`** 
 - Biểu tượng PNG 180/192/512 px, manifest dùng đường dẫn tương đối đúng phạm vi repo Pages.
 - Service worker lưu giao diện và toàn bộ kho prompt để mở ngoại tuyến sau lần tải đầu; tác vụ AI trong phím tắt có thể vẫn cần mạng.
 - Mở kho đã chấp nhận từ bộ nhớ thiết bị trước, rồi kiểm tra bản mới khi mở/đưa app về trước (cách lần kiểm tra trước ít nhất 60 giây), khi bấm ↻ và mỗi 5 phút lúc app đang hiển thị. Lần đầu chưa có kho sẽ tải trực tiếp, không báo cập nhật giả.
+- Khi đã có kho, kiểm tra **`version.json`** chỉ vài chục byte trước. Nếu phiên bản không đổi, không tải lại `prompts.json`; khi có thay đổi mới tải kho để tính số prompt thêm/sửa/xóa. Service worker ưu tiên mạng cho cả hai tệp, có bộ nhớ dự phòng khi mất mạng. Bản triển khai cũ chưa có `version.json` vẫn đọc kho bình thường.
 - Bản mới được tải trước và chờ trong popup; chỉ thay kho sau khi bấm **Cập nhật**. Bỏ qua popup không làm mất bản kho đã chấp nhận khi mở lại. Thay đổi mã giao diện không bị tính nhầm thành prompt mới; lỗi mạng giữ kho cũ.
 - Yêu thích lưu theo đường dẫn tệp trên thiết bị; đổi tên hoặc di chuyển tệp sẽ đổi định danh ghim.
 - Tệp `Prompt-AI.mobileconfig` được tạo khi build: một webclip toàn màn hình, có biểu tượng, cho phép gỡ; không chứa Wi-Fi, VPN, DNS hay quản lý thiết bị. Cấu hình không ký số.

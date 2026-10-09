@@ -10,7 +10,7 @@ self.addEventListener('install', event => {
     const cache = await caches.open(CACHE);
     await cache.addAll(ASSETS.map(path => new URL(path, ROOT).href));
     // Bản xuất thẳng main chưa có danh mục build; không để 404 làm hỏng cài ngoại tuyến.
-    await Promise.allSettled(['./prompts.json', './Prompt-AI.mobileconfig'].map(async path => {
+    await Promise.allSettled(['./prompts.json', './version.json', './Prompt-AI.mobileconfig'].map(async path => {
       const url = new URL(path, ROOT).href;
       const response = await fetch(url, { cache: 'no-store' });
       if (response.ok) await cache.put(url, response);
@@ -41,7 +41,7 @@ async function networkFirst(request) {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (event.request.method !== 'GET' || url.origin !== ROOT.origin || !url.pathname.startsWith(ROOT.pathname)) return;
-  if (url.pathname === new URL('./prompts.json', ROOT).pathname) {
+  if (['./prompts.json', './version.json'].some(path => url.pathname === new URL(path, ROOT).pathname)) {
     event.respondWith(networkFirst(event.request)); return;
   }
   // Một bộ HTML/CSS/JS cùng phiên bản; phiên bản mới kích hoạt khi người dùng chọn Cập nhật.

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { shortcutURL, normalize, validateCatalog, matches, catalogChanges } from '../core.js';
+import { shortcutURL, normalize, validateCatalog, matches, catalogChanges, inCategory, buildCategoryTree, paginate, paginationNumbers } from '../core.js';
 
 test('Shortcut receives exact raw text, including Vietnamese, CRLF, URL symbols, emoji and code', () => {
   const text = 'Tiếng Việt: Sếp & em + 100% # ?\r\n<script>alert("x")</script>\n👩🏽‍💻\thttps://example.com/?a=1&b=2';
@@ -36,4 +36,46 @@ test('Prompt update notice counts additions, edits and deletions, not code-only 
   assert.equal(catalogChanges(current, { version: 'github-code-only', prompts: [b, a] }).total, 0);
   assert.deepEqual(catalogChanges(current, { prompts: [{ ...a, text: 'new' }, { ...b, id: 'C.txt' }] }), { added: 1, updated: 1, removed: 1, total: 3 });
   assert.equal(catalogChanges(current, { prompts: [{ ...a, title: 'Tên mới' }, b] }).updated, 1);
+});
+
+test('Parent folder includes every descendant without selecting similarly named siblings', () => {
+  assert.equal(inCategory('Đà Lạt/Solo/Hoàng hôn', 'Đà Lạt'), true);
+  assert.equal(inCategory('Đà Lạt/Solo', 'Đà Lạt/Solo'), true);
+  assert.equal(inCategory('Đà Lạt 2/Solo', 'Đà Lạt'), false);
+  const item = { id: 'p', category: 'Đà Lạt/Solo', search: 'anh cuoi' };
+  assert.equal(matches(item, 'anh cuoi', 'Đà Lạt', true, new Set(['p'])), true);
+  assert.equal(matches(item, 'anh cuoi', 'Đà Lạt', true, new Set()), false);
+});
+
+test('Folder tree creates missing parents and counts descendants exactly once', () => {
+  const tree = buildCategoryTree([
+    { category: 'Đà Lạt' }, { category: 'Đà Lạt/Solo' }, { category: 'Đà Lạt/Solo/Đêm' },
+    { category: 'Ảnh/Khmer' }, { category: 'Chung' },
+  ]);
+  assert.equal(tree[0].path, 'Chung');
+  const dalat = tree.find(node => node.path === 'Đà Lạt');
+  assert.equal(dalat.count, 3);
+  assert.equal(dalat.children[0].label, 'Solo');
+  assert.equal(dalat.children[0].count, 2);
+  assert.equal(dalat.children[0].children[0].path, 'Đà Lạt/Solo/Đêm');
+  assert.equal(tree.find(node => node.path === 'Ảnh').count, 1);
+});
+
+test('Pagination keeps 20 prompts per page, no duplicates, and clamps after deletions', () => {
+  const rows = Array.from({ length: 41 }, (_, index) => ({ id: String(index) }));
+  assert.deepEqual([1, 2, 3].map(page => paginate(rows, page).items.length), [20, 20, 1]);
+  assert.deepEqual([1, 2, 3].flatMap(page => paginate(rows, page).items), rows);
+  assert.equal(paginate(rows.slice(0, 20), 3).page, 1);
+  assert.equal(paginate(rows.slice(0, 40)).pages, 2);
+  assert.equal(paginate([], 8).items.length, 0);
+  assert.equal(paginate(rows, -1).page, 1);
+});
+
+test('Large albums have bounded page controls with first/current/last pages reachable', () => {
+  for (const current of [1, 2, 3, 4, 25, 48, 49, 50]) {
+    const numbers = paginationNumbers(current, 50);
+    assert(numbers.includes(1) && numbers.includes(current) && numbers.includes(50));
+    assert(numbers.length <= 7);
+  }
+  assert.deepEqual(paginationNumbers(2, 3), [1, 2, 3]);
 });

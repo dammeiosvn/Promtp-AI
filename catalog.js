@@ -5,6 +5,7 @@ const REPOSITORY = 'dammeiosvn/Promtp-AI';
 const REF = 'main';
 const EXCLUDED = new Set(['_site', 'node_modules', 'scripts', 'tests', 'icons', 'assets', '__pycache__']);
 const CATALOG_URL = new URL('./prompts.json', import.meta.url).href;
+const VERSION_URL = new URL('./version.json', import.meta.url).href;
 const DATA_CACHE = 'prompt-ai-data-' + new URL('./', import.meta.url).pathname;
 
 async function getJSON(url, fetcher) {
@@ -73,16 +74,28 @@ export async function saveCatalog(catalog) {
   } catch { /* Đọc prompt vẫn hoạt động khi Safari không cho lưu bộ nhớ. */ }
 }
 
-export async function readCatalog(previous = null, { persist = true } = {}) {
+export async function readCatalog(previous = null, { persist = true, fetcher = fetch } = {}) {
   const saved = previous || await readSavedCatalog();
+  if (saved) {
+    try {
+      // Chỉ tải vài chục byte khi kho không đổi; giữ nguyên bản đã chấp nhận.
+      const response = await fetcher(VERSION_URL, { cache: 'no-store', signal: AbortSignal.timeout(12000) });
+      if (response.ok) {
+        const meta = await response.json();
+        if (meta.schema === 1 && typeof meta.version === 'string' && meta.version === saved.version) {
+          return { catalog: saved, cached: false, unchanged: true };
+        }
+      }
+    } catch { /* Bản cũ chưa có version.json hoặc mạng lỗi: đọc kho như trước. */ }
+  }
   let catalog;
   try {
     // Ưu tiên dữ liệu đã build: không cần gọi API GitHub, dùng được cả repo private.
-    const response = await fetch(CATALOG_URL, { cache: 'no-store', signal: AbortSignal.timeout(12000) });
+    const response = await fetcher(CATALOG_URL, { cache: 'no-store', signal: AbortSignal.timeout(12000) });
     if (response.ok) catalog = validateCatalog(await response.json());
   } catch { /* Pages main không có prompts.json; dùng bộ quét repo bên dưới. */ }
   if (!catalog) {
-    try { catalog = await fetchRepositoryCatalog(saved); }
+    try { catalog = await fetchRepositoryCatalog(saved, fetcher); }
     catch (error) { if (saved) return { catalog: saved, cached: true }; throw error; }
   }
   // Kiểm tra nền không ghi đè kho đã được người dùng chấp nhận.

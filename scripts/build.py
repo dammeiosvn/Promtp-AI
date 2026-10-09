@@ -90,6 +90,7 @@ def build(root=ROOT):
         (output / filename).write_bytes(source)
     shutil.copytree(root / 'icons', output / 'icons')
     (output / 'prompts.json').write_bytes(encoded)
+    (output / 'version.json').write_text(json.dumps({'schema': 1, 'version': catalog['version']}, separators=(',', ':')) + '\n', encoding='utf-8')
     (output / 'Prompt-AI.mobileconfig').write_bytes(profile_bytes)
     (output / '.nojekyll').touch()
     print(f'Built {len(catalog["prompts"])} prompts / version {version} → {output}')

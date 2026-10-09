@@ -1,10 +1,12 @@
-import { shortcutURL, normalize, matches, catalogChanges } from './core.js';
+import { shortcutURL, normalize, matches, catalogChanges, inCategory, buildCategoryTree, paginate, paginationNumbers } from './core.js';
 import { readCatalog, readSavedCatalog, saveCatalog } from './catalog.js';
 
 const $ = id => document.getElementById(id);
 const list = $('list'), q = $('q');
 const STORE_KEY = 'prompt-ai.favorites.v1';
 let catalog = null, items = [], category = '', favoritesOnly = false;
+let pageNumber = 1, folderTree = [];
+const expandedFolders = new Map();
 let refreshTask = null, searchTimer, toastTimer, registration, lastChecked = 0, firstPaint = true;
 let pendingCatalog = null, pendingChanges = null, offeredVersion = null, offeredWorker = null, applyingUpdate = false;
 let favorites = new Set();
@@ -69,7 +71,8 @@ function showUpdateNotice(force = false) {
 function installCatalog(next) {
   catalog = next;
   items = next.prompts.map(item => ({ ...item, search: normalize(item.title + ' ' + item.category + ' ' + item.text) }));
-  if (category && !items.some(item => item.category === category)) category = '';
+  folderTree = buildCategoryTree(items);
+  if (category && !items.some(item => inCategory(item.category, category))) { category = ''; pageNumber = 1; }
   syncFilters(); paint();
 }
 async function applyUpdate() {
@@ -142,13 +145,16 @@ function makeCard(item, index) {
   actions.append(pin, preview); card.append(link, actions);
   return card;
 }
-function paint() {
+function paint({ resetPage = false, scroll = false } = {}) {
   if (!catalog) return;
+  if (resetPage) pageNumber = 1;
   const query = normalize(q.value.trim());
   const visible = items.filter(item => matches(item, query, category, favoritesOnly, favorites));
+  const page = paginate(visible, pageNumber);
+  pageNumber = page.page;
   const fragment = document.createDocumentFragment();
   let group = null;
-  for (const [index, item] of visible.entries()) {
+  for (const [index, item] of page.items.entries()) {
     if (group !== item.category) {
       group = item.category;
       const heading = document.createElement('h2'); heading.className = 'sec'; heading.textContent = group;
@@ -161,14 +167,42 @@ function paint() {
     empty.textContent = !items.length ? 'Chưa có prompt. Thêm tệp .txt vào repo để bắt đầu.' : favoritesOnly ? 'Chưa có prompt yêu thích phù hợp.' : 'Không tìm thấy prompt phù hợp.';
     if (items.length && (category || query || favoritesOnly)) {
       const reset = document.createElement('button'); reset.type = 'button'; reset.className = 'x'; reset.textContent = 'Hiện tất cả';
-      reset.addEventListener('click', () => { category = ''; favoritesOnly = false; q.value = ''; syncFilters(); paint(); });
+      reset.addEventListener('click', () => { category = ''; favoritesOnly = false; q.value = ''; syncFilters(); paint({ resetPage: true, scroll: true }); });
       empty.append(document.createElement('br'), reset);
     }
     fragment.append(empty);
   }
   list.replaceChildren(fragment); list.setAttribute('aria-busy', 'false');
   list.classList.toggle('initial', firstPaint); firstPaint = false;
-  $('summary').textContent = visible.length + ' prompt' + (category ? ' · ' + category : '') + (favoritesOnly ? ' · Yêu thích' : '');
+  $('summary').textContent = visible.length + ' prompt' + (category ? ' · ' + category : '') + (favoritesOnly ? ' · Yêu thích' : '') + (page.pages > 1 ? ' · Trang ' + page.page + '/' + page.pages : '');
+  renderPagination(page);
+  if (scroll) window.scrollTo({ top: 0, behavior: 'auto' });
+}
+function renderPagination(page) {
+  const nav = $('pagination');
+  nav.hidden = page.pages <= 1;
+  const fragment = document.createDocumentFragment();
+  for (const number of paginationNumbers(page.page, page.pages)) {
+    if (number === null) {
+      const gap = document.createElement('span'); gap.className = 'page-gap'; gap.textContent = '…'; gap.setAttribute('aria-hidden', 'true');
+      fragment.append(gap); continue;
+    }
+    const button = document.createElement('button'); button.type = 'button'; button.className = 'page-number'; button.textContent = number;
+    button.setAttribute('aria-label', 'Trang ' + number);
+    if (number === page.page) button.setAttribute('aria-current', 'page');
+    button.addEventListener('click', event => changePage(number, event.detail === 0));
+    fragment.append(button);
+  }
+  $('pageNumbers').replaceChildren(fragment);
+  $('previousPage').disabled = page.page <= 1;
+  $('nextPage').disabled = page.page >= page.pages;
+  $('pageStatus').textContent = page.start + '–' + page.end + ' / ' + page.total;
+}
+function changePage(number, keyboard = false) {
+  if (number === pageNumber) return;
+  pageNumber = number;
+  paint({ scroll: true });
+  if (keyboard) list.querySelector('.prompt-link')?.focus({ preventScroll: true });
 }
 function syncFilters() {
   $('favBtn').setAttribute('aria-pressed', String(favoritesOnly));
@@ -176,18 +210,47 @@ function syncFilters() {
   $('categoryBtn').setAttribute('aria-label', category ? 'Thư mục: ' + category : 'Lọc thư mục');
 }
 function showCategories() {
-  const counts = new Map();
-  for (const item of items) counts.set(item.category, (counts.get(item.category) || 0) + 1);
   const fragment = document.createDocumentFragment();
-  for (const [name, count] of [['', items.length], ...counts]) {
+  function chooseButton(name, label, count) {
     const button = document.createElement('button'); button.type = 'button';
-    button.className = 'chip' + (name === category ? ' on' : '');
+    button.className = 'chip folder-choice' + (name === category ? ' on' : '');
     button.setAttribute('aria-pressed', String(name === category));
-    button.append(document.createTextNode(name || 'Tất cả'));
+    button.setAttribute('aria-label', (name || 'Tất cả') + ': ' + count + ' prompt');
+    button.dataset.category = name;
+    button.append(document.createTextNode(label));
     const total = document.createElement('span'); total.textContent = count; button.append(total);
-    button.addEventListener('click', () => { category = name; syncFilters(); closeSheet($('categories')); paint(); });
-    fragment.append(button);
+    button.addEventListener('click', () => { category = name; syncFilters(); closeSheet($('categories')); paint({ resetPage: true, scroll: true }); });
+    return button;
   }
+  let branchId = 0;
+  function makeBranch(nodes, depth = 0) {
+    const branch = document.createElement('ul'); branch.className = 'folder-tree' + (depth >= 3 ? ' folder-tree-flat' : '');
+    for (const node of nodes) {
+      const entry = document.createElement('li'), row = document.createElement('div'); row.className = 'folder-row';
+      const choice = chooseButton(node.path, node.label, node.count);
+      if (node.children.length) {
+        const childBranch = makeBranch(node.children, depth + 1);
+        childBranch.id = 'folder-branch-' + branchId++;
+        const expanded = Boolean(category && category !== node.path && inCategory(category, node.path)) || (expandedFolders.get(node.path) ?? depth === 0);
+        childBranch.hidden = !expanded;
+        const toggle = document.createElement('button'); toggle.type = 'button'; toggle.className = 'folder-toggle'; toggle.textContent = '›';
+        toggle.setAttribute('aria-label', 'Mở hoặc thu gọn ' + node.path);
+        toggle.setAttribute('aria-expanded', String(expanded)); toggle.setAttribute('aria-controls', childBranch.id);
+        toggle.addEventListener('click', () => {
+          const open = childBranch.hidden;
+          childBranch.hidden = !open; toggle.setAttribute('aria-expanded', String(open));
+          expandedFolders.set(node.path, open);
+        });
+        row.append(toggle, choice); entry.append(row, childBranch);
+      } else {
+        const spacer = document.createElement('span'); spacer.className = 'folder-spacer'; spacer.setAttribute('aria-hidden', 'true');
+        row.append(spacer, choice); entry.append(row);
+      }
+      branch.append(entry);
+    }
+    return branch;
+  }
+  fragment.append(chooseButton('', 'Tất cả', items.length), makeBranch(folderTree));
   $('categoryGrid').replaceChildren(fragment); openSheet($('categories'));
 }
 async function loadCatalog(manual = false) {
@@ -199,7 +262,7 @@ async function loadCatalog(manual = false) {
       const next = result.catalog;
       if (!catalog) {
         installCatalog(next); await saveCatalog(next);
-      } else if (!result.cached) {
+      } else if (!result.cached && !result.unchanged) {
         const changes = catalogChanges(catalog, next);
         if (changes.total) {
           pendingCatalog = next; pendingChanges = changes;
@@ -225,9 +288,11 @@ async function loadCatalog(manual = false) {
   return refreshTask;
 }
 
-q.addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(paint, 100); });
-q.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); clearTimeout(searchTimer); paint(); q.blur(); } });
-$('favBtn').addEventListener('click', () => { favoritesOnly = !favoritesOnly; syncFilters(); paint(); });
+q.addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(() => paint({ resetPage: true }), 100); });
+q.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); clearTimeout(searchTimer); paint({ resetPage: true }); q.blur(); } });
+$('favBtn').addEventListener('click', () => { favoritesOnly = !favoritesOnly; syncFilters(); paint({ resetPage: true, scroll: true }); });
+$('previousPage').addEventListener('click', event => changePage(pageNumber - 1, event.detail === 0));
+$('nextPage').addEventListener('click', event => changePage(pageNumber + 1, event.detail === 0));
 $('categoryBtn').addEventListener('click', showCategories);
 $('helpBtn').addEventListener('click', () => openSheet($('help')));
 $('updateBtn').addEventListener('click', applyUpdate);
