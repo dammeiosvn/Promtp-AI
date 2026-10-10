@@ -1,0 +1,93 @@
+Create one photorealistic candid photograph of the exact real adult couple shown in the two uploaded reference photographs, enjoying ice cream at a humble sidewalk stall beside Hoan Kiem Lake (Hồ Gươm), Hanoi, Vietnam.
+
+The photograph should feel like a genuine, quietly romantic moment: two people comfortable together, exchanging affectionate looks during an ordinary lakeside date.
+
+OUTPUT:
+Landscape composition, 4:3 aspect ratio. One complete photograph.
+
+REFERENCE PRIORITY — IDENTITY FIRST:
+
+Reference Image 1 is the absolute identity reference for the man.
+Reference Image 2 is the absolute identity reference for the woman.
+
+Use these original photographs to preserve each person’s actual facial anatomy, apparent age, natural skin tone, hairstyle and body proportions. If a previously generated photograph is also supplied, use it only for scene and wardrobe continuity. The original photographs must always govern identity.
+
+Preserve their characteristic eyes, eyelids, eye spacing, eyebrows, forehead, nose bridge, nose tip, nostrils, lips, mouth width, cheeks, chin, jawline and ears. Retain natural asymmetries, distinctive facial details and authentic skin texture.
+
+Do not substitute generic faces, beautify excessively, enlarge the eyes, sculpt the noses, sharpen the jaws, lighten the skin, change their ages or alter their natural physiques.
+
+Keep the woman’s authentic facial fullness, soft cheeks, natural neck, shoulders, upper arms and full-bodied figure. Do not slim her or reshape her body. Preserve the man’s natural facial volume and physique without making him taller, leaner or more muscular.
+
+Facial identity and natural body proportions take priority over expression, pose, clothing, lighting and artistic styling.
+
+HAIRSTYLE LOCK:
+
+Preserve the man’s original dark hairstyle, including its length, density, hairline and swept-back or side-swept structure. Only tidy stray hairs. Do not replace it with a buzz cut or introduce thicker facial hair.
+
+Preserve the woman’s original brown hair, hairline, length and tied-back hairstyle, with the ponytail resting naturally over one shoulder as shown in her reference. Do not change the haircut, dye the hair, add curls or substitute a different hairstyle.
+
+SCENE AND ATMOSPHERE:
+
+A small, unpretentious sidewalk ice cream stall beneath a mature leafy tree beside Hoan Kiem Lake.
+
+The couple sits on simple low green stools at a modest, slightly worn square metal table. Include ordinary pavement, subtle signs of everyday use, a small green tissue holder and a simple stall counter with a thermos near the edge of the frame.
+
+Behind them, show the lake’s softly rippling green water, the distant historic Turtle Tower (Tháp Rùa) on its small island, leafy trees and a few softly blurred passersby.
+
+Keep the tower realistically scaled and positioned in the distance. The setting should feel recognizably Hanoi: relaxed, familiar and lived-in.
+
+POSE, GAZE AND EXPRESSION:
+
+The man sits on the left and the woman on the right, at adjacent corners of the low table. Their bodies turn comfortably toward one another, with a slight natural lean inward.
+
+Capture them pausing between spoonfuls of ice cream and exchanging tender, affectionate looks.
+
+Use subtle, relaxed smiles rather than exaggerated laughter. Their affection should emerge through their gaze and comfortable body language.
+
+Show both faces in shallow three-quarter views, keeping head rotation close to the reference photographs whenever possible. Both eyes should remain visible. Avoid extreme profiles, exaggerated head tilts and expressions that distort their characteristic facial features.
+
+They look toward each other rather than directly into the camera.
+
+Each holds a small metal teaspoon naturally above their own ice cream glass. Their other hands rest comfortably near the table edge or on their laps. Keep both faces unobstructed.
+
+WARDROBE:
+
+The man wears a relaxed light blue short-sleeved linen button-front shirt and navy casual trousers, fitted naturally to his real physique.
+
+The woman wears a warm ivory cotton midi dress with tiny muted sage floral motifs, short sleeves and a modest rounded neckline. The dress follows her authentic full figure comfortably, without corseting or slimming.
+
+Small understated earrings and a delicate necklace complete her everyday look.
+
+ICE CREAM AND TABLE DETAILS:
+
+Place two modest clear footed dessert glasses on the table.
+
+For the man: coconut and vanilla ice cream with a light topping of toasted coconut.
+
+For the woman: strawberry and vanilla ice cream with a few small strawberry pieces.
+
+Show believable scoop textures, slightly softened edges, gentle condensation on the glasses and realistically sized spoons. Keep the desserts simple and appetizing.
+
+PHOTOGRAPHIC TREATMENT:
+
+Natural editorial street photography with a warm, intimate atmosphere.
+
+Use an eye-level camera positioned at the open diagonal of the table. Frame the couple from their heads to approximately their knees, including enough of the table and stools to establish their seated poses.
+
+Use approximately a 50mm lens perspective at f/4.5. Keep both faces sharply focused with realistic proportions. Let the background soften gently while the lake and Turtle Tower remain recognizable.
+
+Soft late-afternoon sunlight filters through the leaves, with gentle ambient fill illuminating both faces. Preserve realistic skin texture, restrained warm colors and natural contrast.
+
+Avoid harsh facial shadows, excessive orange grading, waxy skin, artificial beauty filters and dramatic cinematic effects that reduce facial likeness.
+
+ANATOMY AND FINAL CONSTRAINTS:
+
+Maintain correct shoulders, elbows, wrists, knees and seated body proportions.
+
+Each person has exactly two arms and two hands. Each hand has five anatomically correct digits: one thumb and four fingers, with natural occlusion where the fingers grip a spoon.
+
+No extra fingers, fused fingers, duplicated hands, disconnected limbs, merged bodies or distorted joints.
+
+No collage, decorative frame, captions, text overlays, logos or watermark.
+
+The final photograph must prioritize the recognizable identity of the real couple while preserving the warmth of a simple ice cream date beside Hồ Gươm.
