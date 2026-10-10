@@ -50,6 +50,15 @@ def site_url():
     return base
 
 
+def demo_images(root):
+    folder = root / 'Demo'
+    if not folder.is_dir() or folder.is_symlink():
+        return []
+    return sorted(path for path in folder.iterdir()
+                  if path.is_file() and not path.is_symlink()
+                  and not path.name.startswith('.') and path.suffix.lower() == '.jpeg')
+
+
 def profile(base_url, icon):
     identity = 'vn.sentechtips.promptai.' + hashlib.sha256(base_url.encode()).hexdigest()[:12]
     payload = {
@@ -75,6 +84,10 @@ def build(root=ROOT):
     encoded = (json.dumps(catalog, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
     profile_bytes = profile(site_url(), (root / 'icons/apple-touch-icon.png').read_bytes())
     hasher = hashlib.sha256(encoded + profile_bytes)
+    demos = demo_images(root)
+    for image in demos:
+        hasher.update(('Demo/' + image.name).encode('utf-8'))
+        hasher.update(image.read_bytes())
     for filename in STATIC:
         hasher.update((root / filename).read_bytes())
     for icon in sorted((root / 'icons').glob('*.png')):
@@ -89,6 +102,10 @@ def build(root=ROOT):
             source = source.replace(b'__BUILD_VERSION__', version.encode('ascii'))
         (output / filename).write_bytes(source)
     shutil.copytree(root / 'icons', output / 'icons')
+    if demos:
+        (output / 'Demo').mkdir()
+        for image in demos:
+            shutil.copyfile(image, output / 'Demo' / image.name)
     (output / 'prompts.json').write_bytes(encoded)
     (output / 'version.json').write_text(json.dumps({'schema': 1, 'version': catalog['version']}, separators=(',', ':')) + '\n', encoding='utf-8')
     (output / 'Prompt-AI.mobileconfig').write_bytes(profile_bytes)

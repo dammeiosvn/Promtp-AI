@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { shortcutURL, normalize, validateCatalog, matches, catalogChanges, inCategory, buildCategoryTree, paginate, paginationNumbers } from '../core.js';
+import { shortcutURL, demoImagePath, normalize, validateCatalog, matches, catalogChanges, inCategory, buildCategoryTree, paginate, paginationNumbers } from '../core.js';
 
 test('Shortcut receives exact raw text, including Vietnamese, CRLF, URL symbols, emoji and code', () => {
   const text = 'Tiếng Việt: Sếp & em + 100% # ?\r\n<script>alert("x")</script>\n👩🏽‍💻\thttps://example.com/?a=1&b=2';
@@ -15,6 +15,20 @@ test('Shortcut receives exact raw text, including Vietnamese, CRLF, URL symbols,
 test('A long prompt is not truncated or converted into JSON', () => {
   const text = 'Lệnh nhiều dòng & + % 👾\n'.repeat(5000);
   assert.equal(new URL(shortcutURL(text)).searchParams.get('text'), text);
+});
+test('Demo images use the original prompt filename with spaces replaced by underscores in the Pages scope', () => {
+  const base = 'https://dammeiosvn.github.io/Promtp-AI/';
+  for (const [id, expected] of [
+    ['Phú Quốc/Intimate Couple.txt', 'Intimate_Couple.jpeg'],
+    ['Ảnh/Intimate_Couple.txt', 'Intimate_Couple.jpeg'],
+    ['Phú Quốc/Intimate Couple Close-up.txt', 'Intimate_Couple_Close-up.jpeg'],
+    ['Ảnh cưới/Sang trọng & 100% #?.TXT', 'Sang_trọng_&_100%_#?.jpeg'],
+  ]) {
+    const url = new URL(demoImagePath({ id }), base);
+    assert.equal(decodeURIComponent(url.pathname), '/Promtp-AI/Demo/' + expected);
+    assert.equal(url.search, ''); assert.equal(url.hash, '');
+    assert.equal(url.origin, new URL(base).origin);
+  }
 });
 test('Vietnamese search ignores accents and handles đ', () => {
   assert.equal(normalize('ĐỔI ẢNH CƯỚI'), 'doi anh cuoi');

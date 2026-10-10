@@ -1,4 +1,4 @@
-import { shortcutURL, normalize, matches, catalogChanges, inCategory, buildCategoryTree, paginate, paginationNumbers } from './core.js';
+import { shortcutURL, demoImagePath, normalize, matches, catalogChanges, inCategory, buildCategoryTree, paginate, paginationNumbers } from './core.js';
 import { readCatalog, readSavedCatalog, saveCatalog } from './catalog.js';
 
 const $ = id => document.getElementById(id);
@@ -9,6 +9,7 @@ let pageNumber = 1, folderTree = [];
 const expandedFolders = new Map();
 let refreshTask = null, searchTimer, toastTimer, registration, lastChecked = 0, firstPaint = true;
 let pendingCatalog = null, pendingChanges = null, offeredVersion = null, offeredWorker = null, applyingUpdate = false;
+let previewItem = null;
 let favorites = new Set();
 try {
   const saved = JSON.parse(localStorage.getItem(STORE_KEY));
@@ -100,6 +101,7 @@ async function applyUpdate() {
   toast('Đã cập nhật kho prompt');
 }
 function openPreview(item) {
+  previewItem = item;
   $('previewTitle').textContent = item.title;
   $('previewCategory').textContent = item.category;
   $('previewText').textContent = item.text;
@@ -108,6 +110,31 @@ function openPreview(item) {
   $('previewRun').setAttribute('aria-label', 'Gửi ' + item.title + ' sang Prompt AI');
   openSheet($('preview'));
 }
+function openDemo() {
+  if (!previewItem || $('demoViewer').open) return;
+  const image = $('demoImage'), status = $('demoStatus');
+  image.hidden = true;
+  status.hidden = false; status.textContent = 'Đang tải ảnh…';
+  $('demoTitle').textContent = 'Ảnh demo: ' + previewItem.title;
+  image.alt = 'Ảnh demo của prompt ' + previewItem.title;
+  openSheet($('demoViewer'));
+  // Dùng ảnh gốc tại Pages, chỉ tải khi người dùng mở trình xem.
+  image.src = new URL(demoImagePath(previewItem), import.meta.url).href;
+}
+$('demoImage').addEventListener('load', () => {
+  if (!$('demoViewer').open) return;
+  $('demoStatus').hidden = true; $('demoImage').hidden = false;
+});
+$('demoImage').addEventListener('error', () => {
+  if (!$('demoViewer').open) return;
+  $('demoImage').hidden = true;
+  $('demoStatus').hidden = false;
+  $('demoStatus').textContent = 'Chưa mở được ảnh demo. Ảnh có thể chưa được thêm hoặc kết nối mạng đang gián đoạn.';
+});
+$('demoViewer').addEventListener('close', () => {
+  $('demoImage').hidden = true;
+  $('demoImage').removeAttribute('src'); // Giải phóng ảnh lớn khi đóng, giữ nguyên bảng prompt bên dưới.
+});
 function toggleFavorite(item, button) {
   const added = !favorites.has(item.id);
   if (added) favorites.add(item.id); else favorites.delete(item.id);
@@ -295,6 +322,7 @@ $('previousPage').addEventListener('click', event => changePage(pageNumber - 1, 
 $('nextPage').addEventListener('click', event => changePage(pageNumber + 1, event.detail === 0));
 $('categoryBtn').addEventListener('click', showCategories);
 $('helpBtn').addEventListener('click', () => openSheet($('help')));
+$('previewDemo').addEventListener('click', openDemo);
 $('updateBtn').addEventListener('click', applyUpdate);
 $('refreshBtn').addEventListener('click', () => {
   if (pendingCatalog || waitingWorker()) showUpdateNotice(true);

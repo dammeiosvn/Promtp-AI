@@ -75,6 +75,15 @@
       <p class="preview-category" id="previewCategory"></p>
       <pre id="previewText" tabindex="0" aria-label="Nội dung prompt"></pre>
       <a class="go" id="previewRun" href="#">Gửi sang Prompt AI ↗</a>
+      <button class="go" id="previewDemo" type="button" aria-haspopup="dialog">Xem ảnh</button>
+    </div>
+  </dialog>
+  <dialog class="demo-viewer" id="demoViewer" aria-labelledby="demoTitle">
+    <h2 class="sr-only" id="demoTitle">Ảnh demo</h2>
+    <button class="x demo-close" type="button" aria-label="Đóng trình xem ảnh" data-close autofocus>×</button>
+    <div class="demo-stage">
+      <p class="demo-status" id="demoStatus" role="status">Đang tải ảnh…</p>
+      <img id="demoImage" alt="" decoding="async" hidden>
     </div>
   </dialog>
   <dialog class="sheet" id="help" aria-labelledby="helpTitle">

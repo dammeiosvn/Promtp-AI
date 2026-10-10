@@ -30,6 +30,19 @@ Sau khi triển khai xong, mở lại webclip: nếu kho có prompt được th�
 
 Bộ quét chỉ tải lại nội dung các tệp đã đổi và lưu kho prompt trên thiết bị. Cách đọc trực tiếp repo public chịu giới hạn API của GitHub; dùng workflow build bên dưới để tránh phụ thuộc API. Nếu API tạm lỗi, kho đã lưu vẫn mở được.
 
+## Ảnh demo
+
+Trong bảng xem toàn văn prompt, nút **Xem ảnh** nằm ngay dưới **Gửi sang Prompt AI**. Ảnh lấy từ thư mục **`Demo/` ở gốc repo**, dùng tên tệp prompt bỏ `.txt`, đổi khoảng trắng thành `_`, rồi thêm `.jpeg`:
+
+```text
+Phú Quốc/Intimate Couple.txt  →  Demo/Intimate_Couple.jpeg
+Ảnh cưới/Sang trọng.txt      →  Demo/Sang_trọng.jpeg
+```
+
+Giữ nguyên chữ hoa/thường, dấu tiếng Việt, dấu gạch ngang và dấu gạch dưới trong tên tệp gốc. Không cần khai báo JSON. [Quy tắc và ví dụ](Demo/README.md).
+
+Ảnh gốc được sao chép nguyên byte khi build Pages; trình xem hiển thị toàn ảnh theo đúng tỷ lệ, không cắt, kéo giãn, bo góc hay thêm khung. Nút **×** góc phải đóng ảnh và quay lại bảng prompt đang xem. Chưa có ảnh hoặc tải lỗi thì hiện thông báo, không hiện ảnh hỏng. Chỉ tải ảnh khi bấm nút; ảnh đã xem được lưu để mở lại khi mất mạng nếu bộ nhớ thiết bị còn giữ.
+
 ## Kết nối Shortcuts
 
 Tạo phím tắt mang đúng tên **Prompt AI**. Dùng biến **Đầu vào phím tắt** làm văn bản cho các bước xử lý phía sau:

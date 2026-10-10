@@ -3,6 +3,10 @@ export const PAGE_SIZE = 20;
 export function shortcutURL(text) {
   return 'shortcuts://run-shortcut?name=' + encodeURIComponent(SHORTCUT_NAME) + '&input=text&text=' + encodeURIComponent(text);
 }
+export function demoImagePath(item) {
+  const stem = item.id.split('/').pop().replace(/\.txt$/i, '').trim();
+  return './Demo/' + encodeURIComponent(stem.replace(/\s+/gu, '_')) + '.jpeg';
+}
 export function normalize(text) {
   return String(text).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLocaleLowerCase('vi');
 }

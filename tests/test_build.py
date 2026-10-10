@@ -77,6 +77,32 @@ class DiscoveryTests(unittest.TestCase):
         with patch.dict(os.environ, {'PAGES_BASE_URL': 'https://prompts.example.com'}):
             self.assertEqual(build.site_url(), 'https://prompts.example.com/')
 
+    def test_demo_images_are_copied_unchanged_and_refresh_the_webclip_build(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in build.STATIC:
+                shutil.copyfile(build.ROOT / name, root / name)
+            shutil.copytree(build.ROOT / 'icons', root / 'icons')
+            (root / 'Intimate Couple.txt').write_text('original prompt', encoding='utf-8')
+            (root / 'Demo').mkdir()
+            image = root / 'Demo/Intimate_Couple.jpeg'
+            original = b'\xff\xd8original JPEG bytes\xff\xd9'
+            image.write_bytes(original)
+            (root / 'Demo/README.md').write_text('naming guide')
+            (root / 'Demo/linked.jpeg').symlink_to(image)
+            output = build.build(root)
+            self.assertEqual((output / 'Demo/Intimate_Couple.jpeg').read_bytes(), original)
+            self.assertEqual([p.name for p in (output / 'Demo').iterdir()], ['Intimate_Couple.jpeg'])
+            first_worker = (output / 'sw.js').read_bytes()
+            first_catalog = (output / 'prompts.json').read_bytes()
+            image.write_bytes(original + b'new image')
+            build.build(root)
+            self.assertNotEqual((output / 'sw.js').read_bytes(), first_worker)
+            self.assertEqual((output / 'prompts.json').read_bytes(), first_catalog)
+            image.unlink()
+            build.build(root)
+            self.assertFalse((output / 'Demo').exists())
+
 
 if __name__ == '__main__':
     unittest.main()
